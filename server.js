@@ -23,7 +23,7 @@ class AppServer {
     }
 
     routes() {
-        // this.app.use("/api/auth", require("./routes/authRoutes"));
+        this.app.use("/api/auth", require("./routes/authRoutes"));
         // this.app.use("/api/candidate", require("./routes/candidateRoutes"));
         // this.app.use("/api/vote", require("./routes/voteRoutes"));
         // this.app.use("/api/election", require("./routes/electionRoutes"));
@@ -32,7 +32,8 @@ class AppServer {
 
     async connectDB() {
         try {
-            await mongoose.connect(this.dbUri);
+            console.log(process.env.MONGO_URI);
+            await mongoose.connect(this.dbUri, { useNewUrlParser: true, useUnifiedTopology: true });
             console.log("MongoDB connected");
         } catch (error) {
             console.error("MongoDB connection error:", error.message);
@@ -51,7 +52,6 @@ class AppServer {
     }
 }
 
-// Polymorphism idea: we could extend this for different environments (DevServer, TestServer)
 
 const server = new AppServer();
 
