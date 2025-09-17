@@ -35,4 +35,85 @@ const addCandidate = async (req, res) => {
     }
 };
 
-module.exports = { addCandidate };
+const getAllCandidates = async (req, res) => {
+    try {
+        const { q = "", status = "", page = 1, limit = 10 } = req.query;
+        const filter = {};
+
+        // Voters only see active candidates
+        if (!req.user?.isAdmin) {
+            filter.status = "active";
+        }
+
+        // Search by name/position
+        if (q) {
+            filter.$or = [
+                { name: { $regex: q, $options: "i" } },
+                { position: { $regex: q, $options: "i" } }
+            ];
+        }
+
+        // Status filter (Admins can query all, Voters restricted above)
+        if (status && req.user?.isAdmin) {
+            filter.status = status;
+        }
+
+        const pageNum = Math.max(parseInt(page, 10) || 1, 1);
+        const limitNum = Math.min(Math.max(parseInt(limit, 10) || 10, 1), 50);
+        const skip = (pageNum - 1) * limitNum;
+
+        const [items, total] = await Promise.all([
+            CandidateModel.find(filter).sort("-createdAt").skip(skip).limit(limitNum),
+            CandidateModel.countDocuments(filter)
+        ]);
+
+        res.status(200).json({
+            items,
+            total,
+            page: pageNum,
+            pages: Math.ceil(total / limitNum),
+        });
+    } catch (err) {
+        console.error("getCandidates error:", err);
+        res.status(500).json({ message: "Server error", error: err.message });
+    }
+};
+
+const getCandidateById = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        // Get candidate from DB
+        const candidateDoc = await CandidateModel.findById(id);
+        if (!candidateDoc) {
+            return res.status(404).json({ message: "Candidate not found" });
+        }
+
+        // Wrap DB doc in OOP class
+        const candidate = new Candidate(
+            candidateDoc._id.toString(),
+            candidateDoc.name,
+            candidateDoc.manifesto,
+            candidateDoc.votes
+        );
+
+        // Restrict voters from seeing withdrawn candidates
+        if (!req.user?.isAdmin && candidateDoc.status !== "active") {
+            return res.status(403).json({ message: "Not authorized to view this candidate" });
+        }
+
+        // Response
+        res.status(200).json({
+            id: candidate.id,
+            name: candidate.name,
+            manifesto: candidate.manifesto,
+            votes: candidate.votes,
+            status: candidateDoc.status,
+        });
+    } catch (err) {
+        console.error("getCandidateById error:", err);
+        res.status(500).json({ message: "Server error", error: err.message });
+    }
+};
+
+module.exports = { addCandidate, getAllCandidates, getCandidateById };
