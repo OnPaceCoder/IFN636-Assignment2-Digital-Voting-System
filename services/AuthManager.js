@@ -8,7 +8,7 @@ class AuthManager {
 
     generateToken(user) {
         return jwt.sign(
-            { id: user.id, role: user.getRole() },
+            { id: user.id, name: user.name, email: user.email, role: user.getRole() },
             process.env.JWT_SECRET,
             { expiresIn: "1h" }
         );

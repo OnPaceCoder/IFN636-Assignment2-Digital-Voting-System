@@ -29,7 +29,7 @@ class AdminProxy {
 
 
 // Register User
-exports.register = async (req, res) => {
+const register = async (req, res) => {
     try {
         let { type, name, email, password } = req.body;
 
@@ -74,7 +74,7 @@ exports.register = async (req, res) => {
 
 
 // Login User
-exports.login = async (req, res) => {
+const login = async (req, res) => {
     try {
         const { email, password } = req.body;
 
@@ -120,3 +120,4 @@ exports.login = async (req, res) => {
     }
 };
 
+module.exports = { register, login, AdminProxy };
