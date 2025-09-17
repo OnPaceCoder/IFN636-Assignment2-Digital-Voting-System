@@ -1,12 +1,10 @@
-// controllers/authController.js
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { Admin, Voter } = require("../models/User");
+const { Admin, Voter, User } = require("../models/User");
+const UserModel = require("../models/UserSchema");
+const authManager = require("../services/AuthManager");
 
-
-// ==============================
 // Factory Pattern (UserFactory)
-// ==============================
 class UserFactory {
     static createUser(type, id, name, email, password) {
         if (type === "Admin") return new Admin(id, name, email, password);
@@ -15,40 +13,7 @@ class UserFactory {
     }
 }
 
-
-// ==============================
-// Singleton Pattern (AuthManager)
-// ==============================
-class AuthManager {
-    constructor() {
-        if (AuthManager.instance) return AuthManager.instance;
-        AuthManager.instance = this;
-    }
-
-    generateToken(user) {
-        return jwt.sign(
-            { id: user.id, role: user.getRole() },
-            process.env.JWT_SECRET,
-            { expiresIn: "1h" }
-        );
-    }
-
-    async hashPassword(password) {
-        const salt = await bcrypt.genSalt(10);
-        return await bcrypt.hash(password, salt);
-    }
-
-    async comparePassword(password, hashed) {
-        return await bcrypt.compare(password, hashed);
-    }
-}
-
-const authManager = new AuthManager();
-
-
-// ==============================
 // Proxy Pattern (AdminProxy)
-// ==============================
 class AdminProxy {
     constructor(user) {
         this.user = user;
@@ -63,27 +28,43 @@ class AdminProxy {
 }
 
 
-// ==============================
-// Controllers (register, login)
-// ==============================
-
 // Register User
 exports.register = async (req, res) => {
     try {
-        const { type, name, email, password } = req.body;
+        let { type, name, email, password } = req.body;
 
-        // Hash password (encapsulation)
+        // Check if email already exists
+        const existingUser = await UserModel.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ error: "Email already registered" });
+        }
+
+        // Hash password
         const hashedPassword = await authManager.hashPassword(password);
 
-        // Create user via Factory
-        const user = UserFactory.createUser(type, Date.now(), name, email, hashedPassword);
+        // Save to DB
+        const userDoc = await UserModel.create({
+            role: type,
+            name,
+            email,
+            password: hashedPassword
+        });
 
-        // In a real system, save to DB (Mongo). For now, simulate with memory.
-        const token = authManager.generateToken(user);
+        // Wrap object via Factory
+        const userObj = UserFactory.createUser(
+            userDoc.role,
+            userDoc._id.toString(),
+            userDoc.name,
+            userDoc.email,
+            userDoc.password
+        );
+
+        // Generate token
+        const token = authManager.generateToken(userObj);
 
         res.status(201).json({
-            message: "User registered",
-            role: user.getRole(),
+            message: "User registered successfully",
+            role: userObj.getRole(),
             token
         });
     } catch (err) {
@@ -97,36 +78,45 @@ exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        // ⚠️ Example only: normally fetch user from DB
-        const dummyUser = new Voter(1, "Priyank", email, await authManager.hashPassword("password123"));
+        // Find user in DB
+        const userDoc = await UserModel.findOne({ email });
+        if (!userDoc) {
+            return res.status(401).json({ message: "User not found" });
+        }
 
-        const isMatch = await authManager.comparePassword(password, dummyUser.password);
+        // Compare password
+        const isMatch = await authManager.comparePassword(password, userDoc.password);
         if (!isMatch) {
             return res.status(401).json({ message: "Invalid credentials" });
         }
 
-        const token = authManager.generateToken(dummyUser);
+        // Wrap user via Factory
+        const userObj = UserFactory.createUser(
+            userDoc.role,
+            userDoc._id.toString(),
+            userDoc.name,
+            userDoc.email,
+            userDoc.password
+        );
 
-        res.json({
+        // Generate JWT
+        const token = authManager.generateToken(userObj);
+
+        // Respond
+        res.status(200).json({
             message: "Login successful",
-            role: dummyUser.getRole(),
+            user: {
+                id: userObj.id,
+                name: userObj.name,
+                email: userObj.email,
+                role: userObj.getRole()
+            },
             token
         });
+
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        console.error("Login error:", err);
+        res.status(500).json({ error: "Something went wrong. Please try again." });
     }
 };
 
-
-// Example: Admin-only action using Proxy
-exports.adminOnly = (req, res) => {
-    try {
-        const currentUser = new Admin(99, "Super Admin", "admin@test.com", "securePass");
-        const proxy = new AdminProxy(currentUser);
-
-        const result = proxy.performAdminAction(() => "Candidate deleted successfully");
-        res.json({ message: result });
-    } catch (err) {
-        res.status(403).json({ error: err.message });
-    }
-};
