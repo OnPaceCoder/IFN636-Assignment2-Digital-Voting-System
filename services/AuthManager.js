@@ -1,9 +1,20 @@
 // Singleton Pattern (AuthManager)
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 class AuthManager {
     constructor() {
-        if (AuthManager.instance) return AuthManager.instance;
+        if (AuthManager.instance) {
+            return AuthManager.instance;
+        }
         AuthManager.instance = this;
+    }
+
+    static getInstance() {
+        if (!AuthManager.instance) {
+            AuthManager.instance = new AuthManager();
+        }
+        return AuthManager.instance;
     }
 
     generateToken(user) {
@@ -24,4 +35,5 @@ class AuthManager {
     }
 }
 
-const authManager = new AuthManager();
+// Export the singleton instance using getInstance
+module.exports = AuthManager.getInstance();
