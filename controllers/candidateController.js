@@ -11,13 +11,14 @@ const addCandidate = async (req, res) => {
         const currentUser = new Admin(req.user.id, req.user.name, req.user.email, "");
         const proxy = new AdminProxy(currentUser);
 
-
-        const election = await ElectionModel.findById(electionId);
-        if (!election) throw new Error("Election not found");
+        const electionDoc = await ElectionModel.findById(electionId);
+        if (!electionDoc) throw new Error("Election not found");
 
         const result = await proxy.performAdminAction(async () => {
+            // OOP Candidate object
             const candidateObj = new Candidate(Date.now(), name, position, manifesto, photoUrl);
 
+            // Save candidate in DB
             const candidateDoc = new CandidateModel({
                 name: candidateObj.name,
                 position: candidateObj.position,
@@ -25,16 +26,28 @@ const addCandidate = async (req, res) => {
                 photoUrl: candidateObj.photoUrl,
                 status: candidateObj.status,
                 voteCount: candidateObj.voteCount,
-                electionId: electionId
+                electionId
             });
-
             await candidateDoc.save();
-            election.candidates.push(candidateDoc._id);
-            await election.save();
-            return candidateObj.getDetails();
+
+            // Convert electionDoc into OOP Election
+            const Election = require("../models/Election");
+            const election = new Election(
+                electionDoc._id,
+                electionDoc.title,
+                electionDoc.description,
+                electionDoc.isOpen
+            );
+
+            // Use OOP addCandidate()
+            election.addCandidate(candidateObj);
+
+            // Sync back to DB
+            electionDoc.candidates.push(candidateDoc._id);
+            await electionDoc.save();
+
+            return { ...candidateObj.getDetails(), election: election.getDetails() };
         });
-
-
 
         res.status(201).json({
             message: "Candidate added successfully",
