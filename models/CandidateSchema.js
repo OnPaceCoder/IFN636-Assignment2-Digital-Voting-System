@@ -6,7 +6,7 @@ const candidateSchema = new mongoose.Schema(
         position: { type: String, required: true },
         manifesto: { type: String },
         photoUrl: { type: String },
-        status: { type: String, enum: ["Active", "Withdrawn"], default: "active" },
+        status: { type: String, enum: ["active", "withdrawn"], default: "active" },
         voteCount: { type: Number, default: 0 },
         electionId: { type: mongoose.Schema.Types.ObjectId, ref: "Election", required: true }
     },

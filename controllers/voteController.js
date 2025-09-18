@@ -6,8 +6,8 @@ const Vote = require("../models/Vote");
 
 exports.castVote = async (req, res) => {
     try {
-        // const { candidateId, electionId } = req.body;
-        const candidateId = req.body.candidateId;
+        const { candidateId, electionId } = req.body;
+
         const voterId = req.user.id; // from JWT middleware
 
         // Check election validity
@@ -23,7 +23,7 @@ exports.castVote = async (req, res) => {
             return res.status(400).json({ error: "Candidate does not belong to this election" });
         }
 
-        // 3. Prevent duplicate vote in same election
+        //  Prevent duplicate vote in same election
         const existingVote = await VoteModel.findOne({ voterId, electionId });
         if (existingVote) {
             return res.status(400).json({ error: "You already voted in this election" });
