@@ -1,4 +1,5 @@
 const CandidateModel = require("../models/CandidateSchema");
+const ElectionModel = require("../models/ElectionSchema");
 const Candidate = require("../models/Candidate");
 const { AdminProxy } = require("./authController"); // import your AdminProxy
 const { Admin } = require("../models/User"); // OOP class
@@ -6,9 +7,13 @@ const { Admin } = require("../models/User"); // OOP class
 // Add Candidate (Admin Only)
 const addCandidate = async (req, res) => {
     try {
-        const { name, position, manifesto, photoUrl } = req.body;
+        const { name, position, manifesto, photoUrl, electionId } = req.body;
         const currentUser = new Admin(req.user.id, req.user.name, req.user.email, "");
         const proxy = new AdminProxy(currentUser);
+
+
+        const election = await ElectionModel.findById(electionId);
+        if (!election) throw new Error("Election not found");
 
         const result = await proxy.performAdminAction(async () => {
             const candidateObj = new Candidate(Date.now(), name, position, manifesto, photoUrl);
@@ -19,12 +24,17 @@ const addCandidate = async (req, res) => {
                 manifesto: candidateObj.manifesto,
                 photoUrl: candidateObj.photoUrl,
                 status: candidateObj.status,
-                voteCount: candidateObj.voteCount
+                voteCount: candidateObj.voteCount,
+                electionId: electionId
             });
 
             await candidateDoc.save();
+            election.candidates.push(candidateDoc._id);
+            await election.save();
             return candidateObj.getDetails();
         });
+
+
 
         res.status(201).json({
             message: "Candidate added successfully",
