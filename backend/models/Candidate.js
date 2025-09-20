@@ -14,6 +14,12 @@ class Candidate {
         this.voteCount++; // Encapsulation
     }
 
+    removeVote() {
+        if (this.voteCount > 0) {
+            this.voteCount--;
+        }
+    }
+
     withdraw() {
         this.status = "withdrawn"; // Encapsulation
     }

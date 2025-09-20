@@ -129,3 +129,85 @@ exports.viewMyVote = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 };
+
+// Update Vote 
+exports.updateVote = async (req, res) => {
+    try {
+        const { newCandidateId, electionId } = req.body;
+        const voterId = req.user.id; // from JWT middleware
+
+        // Finding existing vote
+        const existingVote = await VoteModel.findOne({ voterId, electionId });
+        if (!existingVote) {
+            return res.status(404).json({ error: "No existing vote found for this election" });
+        }
+
+        // Get election data
+        const election = await ElectionModel.findById(electionId).populate("candidates");
+        if (!election) return res.status(404).json({ error: "Election not found" });
+        if (!election.isOpen) return res.status(400).json({ error: "Election is closed" });
+
+        // Validate new candidate belongs to election
+        const newCandidateDoc = election.candidates.find(
+            (c) => c._id.toString() === newCandidateId
+        );
+        if (!newCandidateDoc) {
+            return res.status(400).json({ error: "Candidate does not belong to this election" });
+        }
+
+        // Wrap old candidate in OOP and remove vote
+        const oldCandidateDoc = await CandidateModel.findById(existingVote.candidateId);
+        const oldCandidate = new Candidate(
+            oldCandidateDoc._id.toString(),
+            oldCandidateDoc.name,
+            oldCandidateDoc.position,
+            oldCandidateDoc.manifesto,
+            oldCandidateDoc.photoUrl,
+            oldCandidateDoc.status,
+            oldCandidateDoc.voteCount,
+            oldCandidateDoc.electionId
+        );
+        oldCandidate.removeVote();
+
+        // Update old candidate vote count in DB
+        await CandidateModel.findByIdAndUpdate(oldCandidate.id, { voteCount: oldCandidate.voteCount });
+
+        // Wrap new candidate in OOP and add vote
+        const newCandidate = new Candidate(
+            newCandidateDoc._id.toString(),
+            newCandidateDoc.name,
+            newCandidateDoc.position,
+            newCandidateDoc.manifesto,
+            newCandidateDoc.photoUrl,
+            newCandidateDoc.status,
+            newCandidateDoc.voteCount,
+            newCandidateDoc.electionId
+        );
+        newCandidate.addVote();
+
+        // Update new candidate vote count in DB
+        await CandidateModel.findByIdAndUpdate(newCandidate.id, { voteCount: newCandidate.voteCount });
+
+        // Update the vote record
+        existingVote.candidateId = newCandidateId;
+        existingVote.timestamp = new Date();
+        await existingVote.save();
+
+        // Wrap in OOP Vote object
+        const voteObj = new Vote(
+            existingVote.voterId,
+            existingVote.candidateId,
+            existingVote.electionId,
+            existingVote.timestamp
+        );
+
+        res.status(200).json({
+            message: "Vote successfully updated",
+            oldCandidate: oldCandidate.getDetails(),
+            newCandidate: newCandidate.getDetails(),
+            vote: voteObj.getDetails()
+        });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
