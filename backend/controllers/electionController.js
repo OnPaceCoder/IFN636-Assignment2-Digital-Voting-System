@@ -29,7 +29,7 @@ exports.createElection = async (req, res) => {
 };
 
 
-// Open / Close election (Admin only)
+// Update election (Admin only)
 exports.toggleElection = async (req, res) => {
     try {
 
@@ -59,5 +59,28 @@ exports.toggleElection = async (req, res) => {
         });
     } catch (err) {
         res.status(403).json({ error: err.message });
+    }
+};
+
+
+// Get All Elections (Admin and Regular Users)
+exports.getAllElections = async (req, res) => {
+    try {
+        // Fetch all elections from DB
+        const elections = await ElectionModel.find().sort({ createdAt: -1 });
+
+        // If no elections found
+        if (!elections || elections.length === 0) {
+            return res.status(404).json({ message: "No elections found" });
+        }
+
+        // Send response
+        res.status(200).json({
+            message: "Elections retrieved successfully",
+            count: elections.length,
+            elections,
+        });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
 };

@@ -2,13 +2,14 @@ const express = require("express");
 const router = express.Router();
 const {
     createElection,
-    addCandidateToElection,
+    getAllElections,
     toggleElection
 } = require("../controllers/electionController");
 const authMiddleware = require("../middleware/authMiddleware");
+const loggerMiddleware = require("../middleware/loggerMiddleware");
 
 // Admin-only election management
-router.post("/", authMiddleware, createElection);
-router.put("/toggle", authMiddleware, toggleElection);
-
+router.post("/", loggerMiddleware, authMiddleware, createElection);
+router.put("/toggle", loggerMiddleware, authMiddleware, toggleElection);
+router.get("/", loggerMiddleware, authMiddleware, getAllElections);
 module.exports = router;
