@@ -120,4 +120,28 @@ const login = async (req, res) => {
     }
 };
 
-module.exports = { register, login, AdminProxy };
+
+// Get My Profile
+const getMyProfile = async (req, res) => {
+    try {
+        // Find user by ID 
+        const user = await UserModel.findById(req.user.id).select(
+            "name email role university"
+        );
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        res.status(200).json({
+            name: user.name,
+            email: user.email,
+            role: user.role,
+            university: user.university
+        });
+    } catch (err) {
+        console.error("Error fetching profile:", err);
+        res.status(500).json({ error: "Server error" });
+    }
+};
+module.exports = { register, login, AdminProxy, getMyProfile };
