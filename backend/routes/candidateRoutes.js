@@ -25,7 +25,7 @@ router.get("/", loggerMiddleware, authMiddleware, getAllCandidates); // Get all 
 // Request pipeline: logger -> auth -> validateObjectId -> controller
 router.get("/:id", loggerMiddleware, authMiddleware, validateObjectId, getCandidateById); // Get all candidates
 // Request pipeline: logger -> auth -> validateObjectId -> controller
-router.patch("/:id", loggerMiddleware, authMiddleware, validateObjectId, updateCandidate); // Update candidate 
+router.put("/:id", loggerMiddleware, authMiddleware, validateObjectId, updateCandidate); // Update candidate 
 // Request pipeline: logger -> auth -> validateObjectId -> controller
 router.delete("/:id", loggerMiddleware, authMiddleware, validateObjectId, deleteCandidate); // Delete candidate
 
