@@ -7,16 +7,21 @@ const { AdminProxy } = require("./authController");
 // Create new election (Admin only)
 exports.createElection = async (req, res) => {
     try {
+        // Extract election details from request body
         const { title, description } = req.body;
         const currentUser = new Admin(req.user.id, req.user.name, req.user.email, "");
+
+        // Wrap in Proxy
         const proxy = new AdminProxy(currentUser);
 
+        // Perform admin action via proxy
         const result = await proxy.performAdminAction(async () => {
             const election = new ElectionModel({ title, description });
             await election.save();
             return election;
         });
 
+        // Send response
         res.status(201).json({ message: "Election created", election: result });
     } catch (err) {
         res.status(403).json({ error: err.message });
@@ -27,10 +32,16 @@ exports.createElection = async (req, res) => {
 // Open / Close election (Admin only)
 exports.toggleElection = async (req, res) => {
     try {
+
+        // Extract electionId and isOpen from request body
         const { electionId, isOpen } = req.body;
         const currentUser = new Admin(req.user.id, req.user.name, req.user.email, "");
+
+        // Wrap in Proxy
         const proxy = new AdminProxy(currentUser);
 
+
+        // Perform admin action via proxy
         const result = await proxy.performAdminAction(async () => {
             const election = await ElectionModel.findByIdAndUpdate(
                 electionId,
@@ -41,6 +52,7 @@ exports.toggleElection = async (req, res) => {
             return election;
         });
 
+        // Send response
         res.json({
             message: `Election ${result.isOpen ? "opened" : "closed"}`,
             election: result
