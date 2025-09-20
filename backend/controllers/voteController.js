@@ -3,6 +3,12 @@ const CandidateModel = require("../models/CandidateSchema");
 const ElectionModel = require("../models/ElectionSchema");
 const Candidate = require("../models/Candidate"); // OOP class
 const Vote = require("../models/Vote");
+const VoteSubject = require("../patterns/VoteSubject");
+const { LogObserver, AdminConsoleObserver } = require("../patterns/Observer");
+
+
+VoteSubject.addObserver(new LogObserver());
+VoteSubject.addObserver(new AdminConsoleObserver());
 
 
 // Cast Vote Controller
@@ -43,6 +49,7 @@ exports.castVote = async (req, res) => {
         candidateObj.voteCount = candidateDoc.voteCount; // sync from DB
         candidateObj.addVote(); // OOP encapsulation
 
+
         // Persist candidate vote count in DB
         await CandidateModel.findByIdAndUpdate(candidateId, {
             voteCount: candidateObj.voteCount
@@ -59,6 +66,12 @@ exports.castVote = async (req, res) => {
             timestamp: voteObj.timestamp
         });
         await voteDoc.save();
+
+        // Notify observers
+        VoteSubject.notifyObservers({
+            voterName: req.user.name,
+            candidateName: candidateDoc.name,
+        });
 
         res.status(201).json({
             message: "Vote successfully cast",
