@@ -196,5 +196,41 @@ const updateCandidate = async (req, res) => {
     }
 };
 
+// Delete Candidate (Admin Only)
 
-module.exports = { addCandidate, getAllCandidates, getCandidateById, updateCandidate };
+const deleteCandidate = async (req, res) => {
+    try {
+        const { id } = req.params; // candidate id
+
+        const currentUser = new Admin(req.user.id, req.user.name, req.user.email, "");
+
+        // Wrap in Proxy
+        const proxy = new AdminProxy(currentUser);
+
+        const candidateDoc = await CandidateModel.findById(id);
+        if (!candidateDoc) throw new Error("Candidate not found");
+
+        const result = await proxy.performAdminAction(async () => {
+            // Remove candidate from DB
+            await CandidateModel.findByIdAndDelete(id);
+
+            // Remove from related Elections
+            await ElectionModel.updateOne(
+                { _id: candidateDoc.electionId },
+                { $pull: { candidates: candidateDoc._id } }
+            );
+
+            return { id, message: "Candidate deleted" };
+        });
+
+        res.status(200).json({
+            message: "Candidate deleted successfully",
+            result
+        });
+    } catch (err) {
+        res.status(403).json({ error: err.message });
+    }
+};
+
+
+module.exports = { addCandidate, getAllCandidates, getCandidateById, updateCandidate, deleteCandidate };

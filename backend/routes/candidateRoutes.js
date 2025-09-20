@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { addCandidate, getAllCandidates, getCandidateById, updateCandidate } = require("../controllers/candidateController");
+const { addCandidate, getAllCandidates, getCandidateById, updateCandidate, deleteCandidate } = require("../controllers/candidateController");
 const authMiddleware = require("../middleware/authMiddleware"); // JWT middleware
 const loggerMiddleware = require("../middleware/loggerMiddleware");
 
@@ -9,5 +9,6 @@ router.post("/", loggerMiddleware, authMiddleware, addCandidate);        // Add 
 router.get("/", loggerMiddleware, authMiddleware, getAllCandidates); // Get all candidates
 router.get("/:id", loggerMiddleware, authMiddleware, getCandidateById); // Get all candidates
 router.patch("/:id", loggerMiddleware, authMiddleware, updateCandidate); // Update candidate 
+router.delete("/:id", loggerMiddleware, authMiddleware, deleteCandidate); // Delete candidate
 
 module.exports = router;
