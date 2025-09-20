@@ -119,8 +119,12 @@ const getCandidateById = async (req, res) => {
         const candidate = new Candidate(
             candidateDoc._id.toString(),
             candidateDoc.name,
+            candidateDoc.position,
             candidateDoc.manifesto,
-            candidateDoc.votes
+            candidateDoc.photoUrl,
+            candidateDoc.status,
+            candidateDoc.voteCount,
+            candidateDoc.electionId
         );
 
         // Restrict voters from seeing withdrawn candidates
@@ -133,8 +137,9 @@ const getCandidateById = async (req, res) => {
             id: candidate.id,
             name: candidate.name,
             manifesto: candidate.manifesto,
-            votes: candidate.votes,
+            votes: candidateDoc.voteCount,
             status: candidateDoc.status,
+            electionId: candidate.electionId
         });
     } catch (err) {
         console.error("getCandidateById error:", err);
@@ -142,4 +147,54 @@ const getCandidateById = async (req, res) => {
     }
 };
 
-module.exports = { addCandidate, getAllCandidates, getCandidateById };
+
+
+// Update Candidate (Admin Only)
+const updateCandidate = async (req, res) => {
+    try {
+        const { id } = req.params; // candidate id
+        const { name, position, manifesto, photoUrl, status, electionId } = req.body;
+
+        const currentUser = new Admin(req.user.id, req.user.name, req.user.email, "");
+        const proxy = new AdminProxy(currentUser);
+
+        const candidateDoc = await CandidateModel.findById(id);
+        if (!candidateDoc) throw new Error("Candidate not found");
+
+        const result = await proxy.performAdminAction(async () => {
+            // Update candidate fields
+            if (name) candidateDoc.name = name;
+            if (position) candidateDoc.position = position;
+            if (manifesto) candidateDoc.manifesto = manifesto;
+            if (photoUrl) candidateDoc.photoUrl = photoUrl;
+            if (status) candidateDoc.status = status;
+            if (electionId) candidateDoc.electionId = electionId;
+
+            await candidateDoc.save();
+
+            // Wrap into OOP Candidate
+            const candidateObj = new Candidate(
+                candidateDoc._id,
+                candidateDoc.name,
+                candidateDoc.position,
+                candidateDoc.manifesto,
+                candidateDoc.photoUrl,
+                candidateDoc.status,
+                candidateDoc.voteCount,
+                candidateDoc.electionId
+            );
+
+            return candidateObj.getDetails();
+        });
+
+        res.status(200).json({
+            message: "Candidate updated successfully",
+            candidate: result
+        });
+    } catch (err) {
+        res.status(403).json({ error: err.message });
+    }
+};
+
+
+module.exports = { addCandidate, getAllCandidates, getCandidateById, updateCandidate };

@@ -1,12 +1,13 @@
 class Candidate {
-    constructor(id, name, position, manifesto, photoUrl, status = "active") {
+    constructor(id, name, position, manifesto, photoUrl, status = "active", voteCount = 0, electionId) {
         this.id = id;
         this.name = name;
         this.position = position;
         this.manifesto = manifesto;
         this.photoUrl = photoUrl;
         this.status = status;
-        this.voteCount = 0; // encapsulated
+        this.voteCount = voteCount;  // encapsulated
+        this.electionId = electionId
     }
 
     addVote() {
@@ -25,7 +26,8 @@ class Candidate {
             manifesto: this.manifesto,
             photoUrl: this.photoUrl,
             status: this.status,
-            voteCount: this.voteCount
+            voteCount: this.voteCount,
+            electionId: this.electionId
         };
     }
 }
