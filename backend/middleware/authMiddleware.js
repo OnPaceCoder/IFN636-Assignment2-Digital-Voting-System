@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-
+const ConfigManager = require("../patterns/ConfigManager");
 function authMiddleware(req, res, next) {
     const token = req.headers["authorization"]?.split(" ")[1];
 
@@ -8,7 +8,7 @@ function authMiddleware(req, res, next) {
     }
 
     try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const decoded = jwt.verify(token, ConfigManager.get("jwtSecret"));
         req.user = decoded; // attach user info
         next(); // pass to next middleware or controller
     } catch (err) {

@@ -1,16 +1,15 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const dotenv = require("dotenv");
+const ConfigManager = require("./patterns/ConfigManager");
 const cors = require("cors");
 
-dotenv.config();
 
 // Encapsulation: wrap the entire server in a class
 class AppServer {
     constructor() {
         this.app = express();
-        this.port = process.env.PORT || 5000;
-        this.dbUri = process.env.MONGO_URI;
+        this.port = ConfigManager.get("port") || 5001;
+        this.dbUri = ConfigManager.get("dbUrl");
 
         this.middlewares();
         this.routes();
@@ -47,7 +46,7 @@ class AppServer {
 
     start() {
         this.app.listen(this.port, () => {
-            console.log(`🚀 Server running on port ${this.port}`);
+            console.log(`Server running on port ${this.port}`);
         });
     }
 
