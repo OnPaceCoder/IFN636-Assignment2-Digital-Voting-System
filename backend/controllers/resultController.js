@@ -11,8 +11,6 @@ const {
 const PDFDocument = require("pdfkit");
 const { Parser } = require("json2csv");
 
-
-
 // View Election Results
 exports.viewResults = async (req, res) => {
     try {
