@@ -3,7 +3,8 @@ const router = express.Router();
 const {
     createElection,
     getAllElections,
-    toggleElection
+    toggleElection,
+    deleteElection
 } = require("../controllers/electionController");
 const authMiddleware = require("../middleware/authMiddleware");
 const loggerMiddleware = require("../middleware/loggerMiddleware");
@@ -12,4 +13,5 @@ const loggerMiddleware = require("../middleware/loggerMiddleware");
 router.post("/", loggerMiddleware, authMiddleware, createElection);
 router.put("/toggle", loggerMiddleware, authMiddleware, toggleElection);
 router.get("/", loggerMiddleware, authMiddleware, getAllElections);
+router.delete("/:id", loggerMiddleware, authMiddleware, deleteElection);
 module.exports = router;

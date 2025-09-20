@@ -84,3 +84,25 @@ exports.getAllElections = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 };
+
+// Delete Election (Admin only) - Optional
+exports.deleteElection = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const currentUser = new Admin(req.user.id, req.user.name, req.user.email, "");
+
+        // Wrap in Proxy
+        const proxy = new AdminProxy(currentUser);
+
+        // Perform admin action via proxy
+        const result = await proxy.performAdminAction(async () => {
+            const election = await ElectionModel.findByIdAndDelete(id);
+            if (!election) throw new Error("Election not found");
+            return election;
+        });
+        // Send response
+        res.json({ message: "Election deleted", election: result });
+    } catch (err) {
+        res.status(403).json({ error: err.message });
+    }
+}
