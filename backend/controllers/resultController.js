@@ -1,4 +1,7 @@
 const CandidateModel = require("../models/CandidateSchema");
+const ElectionModel = require("../models/ElectionSchema");
+const VoteModel = require("../models/VoteSchema");
+const UserModel = require("../models/UserSchema");
 const {
     SortByVote,
     SortByName,
@@ -116,6 +119,44 @@ exports.exportResults = async (req, res) => {
         // Default = JSON
         res.json({ electionId, method: method || "vote", results });
 
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
+
+// Get Voting Statistics for an Election
+exports.getVoteStats = async (req, res) => {
+    try {
+        const { electionId } = req.query;
+
+        if (!electionId) {
+            return res.status(400).json({ error: "Election ID is required" });
+        }
+
+        // Confirm election exists
+        const election = await ElectionModel.findById(electionId);
+        if (!election) {
+            return res.status(404).json({ error: "Election not found" });
+        }
+
+        // Total votes cast in this election
+        const totalVotesCast = await VoteModel.countDocuments({ electionId });
+
+        // Eligible voters = all users
+        const eligibleVoters = await UserModel.countDocuments();
+
+        // Turnout
+        const turnout = eligibleVoters > 0
+            ? ((totalVotesCast / eligibleVoters) * 100).toFixed(2)
+            : 0;
+
+        res.json({
+            electionId,
+            eligibleVoters,
+            totalVotesCast,
+            turnoutPercentage: turnout
+        });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
