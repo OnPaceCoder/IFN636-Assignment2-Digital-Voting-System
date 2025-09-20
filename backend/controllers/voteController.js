@@ -211,3 +211,49 @@ exports.updateVote = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 };
+
+// Withdraw Vote 
+exports.withdrawVote = async (req, res) => {
+    try {
+        const { electionId } = req.body;
+        const voterId = req.user.id; // from JWT middleware
+
+        // Find existing vote
+        const existingVote = await VoteModel.findOne({ voterId, electionId });
+        if (!existingVote) {
+            return res.status(404).json({ error: "No vote found to withdraw for this election" });
+        }
+
+        // Fetch candidate that was voted
+        const candidateDoc = await CandidateModel.findById(existingVote.candidateId);
+        if (!candidateDoc) {
+            return res.status(404).json({ error: "Candidate not found" });
+        }
+
+        // Wrap candidate in OOP and remove vote
+        const candidate = new Candidate(
+            candidateDoc._id.toString(),
+            candidateDoc.name,
+            candidateDoc.position,
+            candidateDoc.manifesto,
+            candidateDoc.photoUrl,
+            candidateDoc.status,
+            candidateDoc.voteCount,
+            candidateDoc.electionId
+        );
+        candidate.removeVote(); // Using encapsulated method
+
+        // Update candidate vote count in DB
+        await CandidateModel.findByIdAndUpdate(candidate.id, { voteCount: candidate.voteCount });
+
+        // Delete the vote record
+        await existingVote.deleteOne();
+
+        res.status(200).json({
+            message: "Vote successfully withdrawn",
+            candidate: candidate.getDetails()
+        });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
