@@ -29,7 +29,7 @@ exports.castVote = async (req, res) => {
             return res.status(400).json({ error: "You already voted in this election" });
         }
 
-        // 4. Use OOP Candidate class to add vote
+        // Use OOP Candidate class to add vote
         const candidateObj = new Candidate(
             candidateDoc._id,
             candidateDoc.name,
@@ -41,15 +41,15 @@ exports.castVote = async (req, res) => {
         candidateObj.voteCount = candidateDoc.voteCount; // sync from DB
         candidateObj.addVote(); // OOP encapsulation
 
-        // 5. Persist candidate vote count in DB
+        // Persist candidate vote count in DB
         await CandidateModel.findByIdAndUpdate(candidateId, {
             voteCount: candidateObj.voteCount
         });
 
-        // 6. Create OOP Vote object
+        // Create OOP Vote object
         const voteObj = new Vote(voterId, candidateId, electionId);
 
-        // 7. Save vote to DB
+        // Save vote to DB
         const voteDoc = new VoteModel({
             voterId,
             candidateId,
