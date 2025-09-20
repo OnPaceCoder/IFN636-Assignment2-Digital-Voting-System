@@ -7,8 +7,11 @@ const { Admin } = require("../models/User"); // OOP class
 // Add Candidate (Admin Only)
 const addCandidate = async (req, res) => {
     try {
+        // Extract candidate details from request body
         const { name, position, manifesto, photoUrl, electionId } = req.body;
         const currentUser = new Admin(req.user.id, req.user.name, req.user.email, "");
+
+        // Wrap in Proxy
         const proxy = new AdminProxy(currentUser);
 
         const electionDoc = await ElectionModel.findById(electionId);
