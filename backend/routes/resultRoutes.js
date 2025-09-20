@@ -6,7 +6,7 @@ const authMiddleware = require("../middleware/authMiddleware");
 
 
 router.get("/", loggerMiddleware, authMiddleware, viewResults);
-router.get("/export", loggerMiddleware, authMiddleware, exportResults);
+router.post("/export", loggerMiddleware, authMiddleware, exportResults);
 router.get("/stats", loggerMiddleware, authMiddleware, getVoteStats);
 
 
