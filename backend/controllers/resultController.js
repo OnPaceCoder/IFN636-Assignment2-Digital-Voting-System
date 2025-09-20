@@ -162,3 +162,43 @@ exports.getVoteStats = async (req, res) => {
     }
 };
 
+// Get Historical Results for Past Elections
+
+exports.getAllElectionResults = async (req, res) => {
+    try {
+        // Get all elections (past and present  )
+        const elections = await ElectionModel.find().lean();
+
+        const results = [];
+
+        for (const election of elections) {
+            // Fetch candidates for this election
+            const candidates = await CandidateModel.find({ electionId: election._id }).lean();
+
+            let winner = null;
+            if (candidates.length > 0) {
+                // Find candidate with highest voteCount
+                winner = candidates.reduce((max, c) =>
+                    c.voteCount > max.voteCount ? c : max
+                );
+            }
+
+            results.push({
+                electionId: election._id,
+                name: election.name,
+                description: election.description,
+                winner: winner
+                    ? {
+                        candidateId: winner._id,
+                        name: winner.name,
+                        voteCount: winner.voteCount
+                    }
+                    : null
+            });
+        }
+
+        res.json({ results });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
