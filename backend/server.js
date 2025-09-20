@@ -22,6 +22,8 @@ class AppServer {
         this.app.use(express.json());
     }
 
+
+    // Route configuration
     routes() {
         this.app.use("/api/auth", require("./routes/authRoutes"));
         this.app.use("/api/candidate", require("./routes/candidateRoutes"));
@@ -30,6 +32,8 @@ class AppServer {
         this.app.use("/api/result", require("./routes/resultRoutes"));
     }
 
+
+    // Connect to MongoDB
     async connectDB() {
         try {
             console.log(process.env.MONGO_URI);

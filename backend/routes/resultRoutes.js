@@ -5,9 +5,9 @@ const loggerMiddleware = require("../middleware/loggerMiddleware");
 const authMiddleware = require("../middleware/authMiddleware");
 
 
-router.get("/", loggerMiddleware, authMiddleware, viewResults);
-router.post("/export", loggerMiddleware, authMiddleware, exportResults);
-router.get("/stats", loggerMiddleware, authMiddleware, getVoteStats);
-router.get("/history", loggerMiddleware, authMiddleware, getAllElectionResults);
+router.get("/", loggerMiddleware, authMiddleware, viewResults); // View results
+router.post("/export", loggerMiddleware, authMiddleware, exportResults); // Export results
+router.get("/stats", loggerMiddleware, authMiddleware, getVoteStats); // Get voting statistics
+router.get("/history", loggerMiddleware, authMiddleware, getAllElectionResults); // Get all election results
 
 module.exports = router;
