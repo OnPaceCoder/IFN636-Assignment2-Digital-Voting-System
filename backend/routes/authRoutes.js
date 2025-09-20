@@ -1,5 +1,5 @@
 const express = require("express");
-const { register, login } = require("../controllers/authController.js");
+const { register, login, getMyProfile } = require("../controllers/authController.js");
 const validateRegister = require("../middleware/validateRegister");
 const loggerMiddleware = require("../middleware/loggerMiddleware");
 const authMiddleware = require("../middleware/authMiddleware");
@@ -25,8 +25,6 @@ router.post("/register", loggerMiddleware, validateRegister, register);
 router.post("/login", loggerMiddleware, login);
 
 // Protected route: logger -> auth -> controller
-router.get("/profile", loggerMiddleware, authMiddleware, (req, res) => {
-    res.json({ message: `Welcome ${req.user.role}` });
-});
+router.get("/profile", loggerMiddleware, authMiddleware, getMyProfile);
 
 module.exports = router;
