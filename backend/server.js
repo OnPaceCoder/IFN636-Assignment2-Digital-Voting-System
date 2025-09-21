@@ -29,6 +29,7 @@ class AppServer {
         this.app.use("/api/vote", require("./routes/voteRoutes"));
         this.app.use("/api/election", require("./routes/electionRoutes"));
         this.app.use("/api/result", require("./routes/resultRoutes"));
+        this.app.use("/api/feedback", require("./routes/feedbackRoutes"));
     }
 
 
