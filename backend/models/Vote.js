@@ -3,7 +3,7 @@ class Vote {
         this.voterId = voterId;
         this.candidateId = candidateId;
         this.electionId = electionId;
-        this.timestamp = new Date();
+        this.timestamp = new Date(); // Encapsulation
     }
 
     getDetails() {

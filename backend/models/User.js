@@ -9,11 +9,21 @@ class User {
     }
 
     getRole() {
-        return "User"; // Polymorphism
+        return "User";
+    }
+
+    getDetails() {
+        return {
+            id: this.id,
+            name: this.name,
+            email: this.email,
+            isAdmin: this.isAdmin,
+            role: this.getRole()
+        };
     }
 }
 
-class Admin extends User {
+class Admin extends User { // Inheritance
     constructor(id, name, email, password) {
         super(id, name, email, password, true);
     }
@@ -23,14 +33,14 @@ class Admin extends User {
     }
 }
 
-class Voter extends User {
+class Voter extends User { // Inheritance
     constructor(id, name, email, password) {
         super(id, name, email, password, false);
-        this.hasVoted = false; // Encapsulation
+        this.hasVoted = false;
     }
 
     getRole() {
-        return "Voter";
+        return "Voter"; // Polymorphism
     }
 }
 

@@ -5,7 +5,7 @@ class Candidate {
         this.position = position;
         this.manifesto = manifesto;
         this.photoUrl = photoUrl;
-        this.status = status;
+        this.status = status; // encapsulated
         this.voteCount = voteCount;  // encapsulated
         this.electionId = electionId
     }
@@ -14,7 +14,7 @@ class Candidate {
         this.voteCount++; // Encapsulation
     }
 
-    removeVote() {
+    removeVote() { // Encapsulation
         if (this.voteCount > 0) {
             this.voteCount--;
         }
