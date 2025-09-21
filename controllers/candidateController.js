@@ -139,4 +139,37 @@ const getCandidateById = async (req, res) => {
     }
 };
 
+const updateCandidate = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { name, position, manifesto, photoUrl, status } = req.body;
+
+        const currentUser = new Admin(req.user.id, req.user.name, req.user.email, "");
+        const proxy = new AdminProxy(currentUser);
+
+        const updatedCandidate = await proxy.performAdminAction(async () => {
+            const candidateDoc = await CandidateModel.findById(id);
+            if (!candidateDoc) throw new Error("Candidate not found");
+
+            // Update allowed fields
+            if (name) candidateDoc.name = name;
+            if (position) candidateDoc.position = position;
+            if (manifesto) candidateDoc.manifesto = manifesto;
+            if (photoUrl) candidateDoc.photoUrl = photoUrl;
+            if (status) candidateDoc.status = status;
+
+            await candidateDoc.save();
+
+            return candidateDoc;
+        });
+
+        res.status(200).json({
+            message: "Candidate updated successfully",
+            candidate: updatedCandidate
+        });
+    } catch (err) {
+        res.status(403).json({ error: err.message });
+    }
+};
+
 module.exports = { addCandidate, getAllCandidates, getCandidateById };
