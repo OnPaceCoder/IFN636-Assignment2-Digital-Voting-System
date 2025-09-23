@@ -62,29 +62,37 @@ const VotePage = () => {
 
     const [votedForId, setVotedForId] = useState(null);
 
+    // new states for backend query params
+    const [q, setQ] = useState("");
+    const [page, setPage] = useState(1);
+    const [limit] = useState(6); // default per page
+    const [totalPages, setTotalPages] = useState(1);
+
     useEffect(() => {
         if (!user) navigate("/login");
     }, [user, navigate]);
 
-    // Load active candidates
+    // Load candidates with search + pagination
     useEffect(() => {
-        const fetchActive = async () => {
+        const fetchCandidates = async () => {
             try {
                 setLoading(true);
                 setErr("");
                 const token = user?.token;
-                const { data } = await axiosInstance.get("/api/vote/candidates", {
+                const { data } = await axiosInstance.get("/api/candidate", {
                     headers: token ? { Authorization: `Bearer ${token}` } : {},
+                    params: { q, page, limit },
                 });
                 setCandidates(data.items || []);
+                setTotalPages(data.pages || 1);
             } catch (e) {
                 setErr(e?.response?.data?.message || "Failed to load candidates");
             } finally {
                 setLoading(false);
             }
         };
-        fetchActive();
-    }, [user]);
+        if (user) fetchCandidates();
+    }, [user, q, page, limit]);
 
     // Fetch vote status
     useEffect(() => {
@@ -142,26 +150,61 @@ const VotePage = () => {
                     </button>
                 </div>
 
+                {/* Search input */}
+                <div className="mb-6">
+                    <input
+                        type="text"
+                        value={q}
+                        onChange={(e) => { setPage(1); setQ(e.target.value); }}
+                        placeholder="Search by name or position"
+                        className="w-full md:w-1/2 p-2 border rounded"
+                    />
+                </div>
+
                 {loading ? (
                     <div className="text-gray-600">Loading…</div>
                 ) : err ? (
                     <div className="text-red-600">{err}</div>
                 ) : candidates.length === 0 ? (
-                    <div className="text-gray-600">No active candidates available.</div>
+                    <div className="text-gray-600">No candidates found.</div>
                 ) : (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                        {candidates.map((c) => (
-                            <CandidateCard
-                                key={c._id}
-                                candidate={c}
-                                onVote={openConfirm}
-                                votedForId={votedForId}
-                            />
-                        ))}
+                    <div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                            {candidates.map((c) => (
+                                <CandidateCard
+                                    key={c._id}
+                                    candidate={c}
+                                    onVote={openConfirm}
+                                    votedForId={votedForId}
+                                />
+                            ))}
+                        </div>
+
+                        {/* Pagination */}
+                        <div className="flex justify-center mt-6 gap-2">
+                            <button
+                                onClick={() => setPage((p) => Math.max(p - 1, 1))}
+                                disabled={page === 1}
+                                className="px-3 py-2 rounded border bg-white text-gray-700 disabled:opacity-50"
+                            >
+                                Prev
+                            </button>
+                            <span className="px-4 py-2 text-gray-700">
+                                Page {page} of {totalPages}
+                            </span>
+                            <button
+                                onClick={() => setPage((p) => Math.min(p + 1, totalPages))}
+                                disabled={page === totalPages}
+                                className="px-3 py-2 rounded border bg-white text-gray-700 disabled:opacity-50"
+                            >
+                                Next
+                            </button>
+                        </div>
                     </div>
                 )}
             </div>
 
+            {/* Confirmation Modal */}
             {showModal && selected && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 px-4">
                     <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-lg">
