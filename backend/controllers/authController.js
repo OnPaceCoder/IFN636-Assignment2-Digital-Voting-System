@@ -8,7 +8,7 @@ const authManager = require("../services/AuthManager");
 class UserFactory {
     static createUser(type, id, name, email, password) {
         if (type === "Admin") return new Admin(id, name, email, password);
-        if (type === "Voter") return new Voter(id, name, email, password);
+        if (type === "User") return new Voter(id, name, email, password);
         throw new Error("Invalid user type");
     }
 }
