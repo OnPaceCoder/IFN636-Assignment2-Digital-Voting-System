@@ -25,7 +25,7 @@ const AdminCandidatesList = () => {
     // Check if user is admin
     useEffect(() => {
         if (!user) navigate("/login");
-        else if (!user.isAdmin) navigate("/");
+        else if (!user?.user.role === "Admin") navigate("/");
     }, [user, navigate]);
 
     const query = useMemo(() => ({ q, status, page, limit }), [q, status, page, limit]);
@@ -122,6 +122,7 @@ const AdminCandidatesList = () => {
                                     <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-600">Position</th>
                                     <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-600">Status</th>
                                     <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-600">Votes</th>
+                                    <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-600">Election</th>
                                     <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-wider text-gray-600">Actions</th>
                                 </tr>
                             </thead>
@@ -145,6 +146,7 @@ const AdminCandidatesList = () => {
                                                 </span>
                                             </td>
                                             <td className="px-4 py-3 text-gray-700">{c.voteCount ?? 0}</td>
+                                            <td className="px-4 py-3 text-gray-700">{c.electionTitle ?? 0}</td>
                                             <td className="px-4 py-3 text-right">
                                                 <div className="inline-flex gap-2">
                                                     <button
