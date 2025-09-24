@@ -49,6 +49,12 @@ const Navbar = () => {
               >
                 My Vote
               </Link>
+              <Link
+                to="/elections"
+                className="hidden sm:inline-flex rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
+              >
+                Elections
+              </Link>
 
               <button
                 onClick={handleLogout}

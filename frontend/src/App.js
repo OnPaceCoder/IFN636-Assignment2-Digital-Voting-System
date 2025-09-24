@@ -9,6 +9,7 @@ import EditCandidatePage from './pages/candidates/EditCandidatePage';
 import VotePage from './pages/voting/VotePage';
 import MyVotePage from './pages/voting/MyVotePage';
 import LandingPage from './pages/LandingPage';
+import ElectionListPage from './pages/elections/ListElections';
 
 function App() {
   return (
@@ -22,6 +23,8 @@ function App() {
         <Route path="/create-candidate" element={<CreateCandidatePage />} />
         <Route path="/list-candidates" element={<AdminCandidatesList />} />
         <Route path="/update-candidate/:id/edit" element={<EditCandidatePage />} />
+        <Route path="/elections" element={<ElectionListPage />} />
+        <Route path="/elections/:electionId" element={<VotePage />} />
         <Route path="/add-vote" element={<VotePage />} />
         <Route path="/my-vote" element={<MyVotePage />} />
 
