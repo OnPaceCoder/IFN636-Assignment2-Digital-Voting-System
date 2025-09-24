@@ -1,25 +1,21 @@
 import React from "react";
 import CandidateForm from "../../components/candidates/CandidateForm";
-
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import axiosInstance from "../../axiosConfig";
 
-
 const CreateCandidatePage = () => {
-
     const navigate = useNavigate();
     const { user } = useAuth();
 
-
     const handleCreateCandidate = async (formData) => {
         try {
-            const token =
-                user?.token
+            const token = user?.token || localStorage.getItem("token");
+
             await axiosInstance.post("/api/candidate", formData, {
                 headers: token ? { Authorization: `Bearer ${token}` } : {},
             });
-            console.log(token)
+
             alert("Candidate created successfully!");
             navigate("/list-candidates");
         } catch (error) {
@@ -43,14 +39,13 @@ const CreateCandidatePage = () => {
                     </button>
                 </div>
 
-                {/* Card container around the form to match your form’s card style */}
+                {/* Card container around the form */}
                 <div className="bg-white shadow-md rounded-lg p-6">
                     <CandidateForm onSubmit={handleCreateCandidate} />
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default CreateCandidatePage
-
+export default CreateCandidatePage;
