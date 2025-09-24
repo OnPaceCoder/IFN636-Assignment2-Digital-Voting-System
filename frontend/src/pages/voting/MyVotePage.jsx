@@ -9,57 +9,63 @@ const MyVotePage = () => {
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
-    const [vote, setVote] = useState(null);
+    const [votes, setVotes] = useState([]);
 
     // Change-vote UI states
     const [showChangeModal, setShowChangeModal] = useState(false);
     const [candidates, setCandidates] = useState([]);
     const [selected, setSelected] = useState(null);
     const [submitting, setSubmitting] = useState(false);
+    const [activeElection, setActiveElection] = useState(null);
 
-    // Withdrawing state
+    // Withdraw state
     const [withdrawing, setWithdrawing] = useState(false);
-    // Delete confirm modal
     const [showDeleteModal, setShowDeleteModal] = useState(false);
 
     useEffect(() => {
         if (!user) navigate("/login");
     }, [user, navigate]);
 
-    // Fetch user's vote status
+    // Fetch all votes
     useEffect(() => {
-        const fetchVote = async () => {
+        const fetchVotes = async () => {
             try {
                 setLoading(true);
                 setError("");
-                const token = user?.token;
+                const token = user?.token || localStorage.getItem("token");
+
                 const { data } = await axiosInstance.get("/api/vote/status", {
                     headers: token ? { Authorization: `Bearer ${token}` } : {},
+                    params: { electionId: null }, // ✅ fetch all votes
                 });
 
-                if (data?.hasVoted && data.vote) {
-                    setVote(data.vote);
+                if (data?.votes) {
+                    setVotes(data.votes);
                 } else {
-                    setVote(null);
+                    setVotes([]);
                 }
             } catch (err) {
-                setError(err?.response?.data?.message || "Failed to fetch your vote");
+                setError(err?.response?.data?.message || "Failed to fetch your votes");
             } finally {
                 setLoading(false);
             }
         };
 
-        if (user) fetchVote();
+        if (user) fetchVotes();
     }, [user]);
 
-    // Change modal: fetch active candidates (excluding current) 
-    const openChange = async () => {
+    // Open Change Vote modal
+    const openChange = async (vote) => {
         try {
-            const token = user?.token;
-            const { data } = await axiosInstance.get("/api/vote/candidates", {
+            setActiveElection(vote.election);
+            const token = user?.token || localStorage.getItem("token");
+
+            const { data } = await axiosInstance.get("/api/candidate", {
                 headers: token ? { Authorization: `Bearer ${token}` } : {},
+                params: { electionId: vote.election.id },
             });
-            const items = (data?.items || []).filter(c => c._id !== vote?.candidateId);
+
+            const items = (data?.items || []).filter(c => c._id !== vote.candidateId);
             setCandidates(items);
             setSelected(null);
             setShowChangeModal(true);
@@ -68,20 +74,26 @@ const MyVotePage = () => {
         }
     };
 
-    // Submit change vote
+    // Submit Change Vote
     const submitChange = async () => {
-        if (!selected) return;
+        if (!selected || !activeElection) return;
         try {
             setSubmitting(true);
-            const token = user?.token;
-            await axiosInstance.put(`/api/vote/${selected._id}`, {}, {
+            const token = user?.token || localStorage.getItem("token");
+
+            await axiosInstance.put("/api/vote", {
+                newCandidateId: selected._id,
+                electionId: activeElection.id,
+            }, {
                 headers: token ? { Authorization: `Bearer ${token}` } : {},
             });
-            // Refresh status to show updated vote
+
+            // Refresh votes after change
             const { data } = await axiosInstance.get("/api/vote/status", {
                 headers: token ? { Authorization: `Bearer ${token}` } : {},
+                params: { electionId: null },
             });
-            if (data?.hasVoted && data.vote) setVote(data.vote);
+            setVotes(data?.votes || []);
             setShowChangeModal(false);
         } catch (e) {
             setError(e?.response?.data?.message || "Failed to change your vote");
@@ -90,18 +102,30 @@ const MyVotePage = () => {
         }
     };
 
-    // Withdraw (delete) vote
+    // Open Withdraw modal
+    const openWithdraw = (vote) => {
+        setActiveElection(vote.election);
+        setShowDeleteModal(true);
+    };
+
+    // Withdraw Vote
     const withdrawVote = async () => {
+        if (!activeElection) return;
         try {
             setWithdrawing(true);
-            const token = user?.token;
+            const token = user?.token || localStorage.getItem("token");
+
             await axiosInstance.delete("/api/vote", {
                 headers: token ? { Authorization: `Bearer ${token}` } : {},
+                data: { electionId: activeElection.id },
             });
 
-            setVote(null);
-            setShowChangeModal(false);
-            setSelected(null);
+            // Refresh votes
+            const { data } = await axiosInstance.get("/api/vote/status", {
+                headers: token ? { Authorization: `Bearer ${token}` } : {},
+                params: { electionId: null },
+            });
+            setVotes(data?.votes || []);
             setShowDeleteModal(false);
         } catch (e) {
             setError(e?.response?.data?.message || "Failed to withdraw your vote");
@@ -112,9 +136,9 @@ const MyVotePage = () => {
 
     return (
         <div className="min-h-screen bg-gray-50 px-4 py-10">
-            <div className="max-w-lg mx-auto">
+            <div className="max-w-3xl mx-auto">
                 <div className="mb-6 flex items-center justify-between">
-                    <h1 className="text-2xl md:text-3xl font-bold text-gray-900">My Vote</h1>
+                    <h1 className="text-2xl md:text-3xl font-bold text-gray-900">My Votes</h1>
                     <button
                         onClick={() => navigate("/")}
                         className="inline-flex items-center rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50"
@@ -127,44 +151,57 @@ const MyVotePage = () => {
                     <div className="text-gray-600">Loading…</div>
                 ) : error ? (
                     <div className="text-red-600">{error}</div>
-                ) : !vote ? (
+                ) : votes.length === 0 ? (
                     <div className="text-gray-600">You have not voted yet.</div>
                 ) : (
-                    <div className="bg-white rounded-lg shadow-md p-6">
-                        <div className="flex items-center gap-4">
-                            <img
-                                src={vote.photoUrl || "https://picsum.photos/id/237/200/300"}
-                                alt={vote.candidateName}
-                                className="h-16 w-16 rounded-full object-cover border"
-                            />
-                            <div>
-                                <h3 className="text-lg font-semibold text-gray-900">{vote.candidateName}</h3>
-                                <p className="text-sm text-gray-600">{vote.position}</p>
-                            </div>
-                        </div>
-                        {vote.manifesto && (
-                            <p className="mt-3">Manifesto: {vote.manifesto}</p>
-                        )}
-                        <p className="mt-4 text-sm text-gray-500">
-                            Voted on: {new Date(vote.when).toLocaleString()}
-                        </p>
+                    <div className="space-y-4">
+                        {votes.map((vote) => (
+                            <div key={vote._id} className="bg-white rounded-lg shadow-md p-6">
+                                <div className="flex items-center gap-4">
+                                    <img
+                                        src={vote.photoUrl || "https://picsum.photos/id/237/200/300"}
+                                        alt={vote.candidateName}
+                                        className="h-16 w-16 rounded-full object-cover border"
+                                    />
+                                    <div>
+                                        <h3 className="text-lg font-semibold text-gray-900">{vote.candidateName}</h3>
+                                        <p className="text-sm text-gray-600">{vote.position}</p>
+                                        <p className="text-xs text-gray-500 mt-1">
+                                            Election: {vote.election?.title} (
+                                            {vote.election?.isOpen ? "Open" : "Closed"})
+                                        </p>
+                                    </div>
+                                </div>
+                                {vote.manifesto && <p className="mt-3">Manifesto: {vote.manifesto}</p>}
+                                <p className="mt-4 text-sm text-gray-500">
+                                    Voted on: {new Date(vote.when).toLocaleString()}
+                                </p>
 
-                        {/* Actions */}
-                        <div className="mt-4 flex gap-2">
-                            <button
-                                onClick={openChange}
-                                className="rounded-lg bg-blue-600 text-white px-3 py-2 text-sm hover:bg-blue-700"
-                            >
-                                Change Vote
-                            </button>
-                            <button
-                                onClick={() => setShowDeleteModal(true)}
-                                disabled={withdrawing}
-                                className="rounded-lg bg-red-600 text-white px-3 py-2 text-sm hover:bg-red-700 disabled:opacity-60"
-                            >
-                                Withdraw Vote
-                            </button>
-                        </div>
+                                {/* Actions */}
+                                <div className="mt-4 flex gap-2">
+                                    <button
+                                        onClick={() => openChange(vote)}
+                                        disabled={!vote.election?.isOpen}
+                                        className={`rounded-lg px-3 py-2 text-sm 
+                                            ${vote.election?.isOpen
+                                                ? "bg-blue-600 text-white hover:bg-blue-700"
+                                                : "bg-gray-300 text-gray-600 cursor-not-allowed"}`}
+                                    >
+                                        Change Vote
+                                    </button>
+                                    <button
+                                        onClick={() => openWithdraw(vote)}
+                                        disabled={!vote.election?.isOpen}
+                                        className={`rounded-lg px-3 py-2 text-sm 
+                                            ${vote.election?.isOpen
+                                                ? "bg-red-600 text-white hover:bg-red-700"
+                                                : "bg-gray-300 text-gray-600 cursor-not-allowed"}`}
+                                    >
+                                        Withdraw Vote
+                                    </button>
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 )}
             </div>
@@ -174,7 +211,9 @@ const MyVotePage = () => {
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 px-4">
                     <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-lg">
                         <h2 className="text-lg font-semibold text-gray-900 mb-3">Change your vote</h2>
-                        <p className="text-gray-700 mb-4">Select a different candidate:</p>
+                        <p className="text-gray-700 mb-4">
+                            Select a different candidate for {activeElection?.title}:
+                        </p>
 
                         <div className="max-h-64 overflow-auto space-y-2">
                             {candidates.length === 0 ? (
@@ -228,9 +267,11 @@ const MyVotePage = () => {
             {showDeleteModal && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 px-4">
                     <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-lg">
-                        <h2 className="text-lg font-semibold text-gray-900 mb-2">Withdraw your vote?</h2>
+                        <h2 className="text-lg font-semibold text-gray-900 mb-2">
+                            Withdraw your vote from {activeElection?.title}?
+                        </h2>
                         <p className="text-gray-700 mb-4">
-                            This will remove your current vote. You can vote again later.
+                            This will remove your current vote. You can vote again later if the election is still open.
                         </p>
                         <div className="flex justify-end gap-3">
                             <button
@@ -252,7 +293,7 @@ const MyVotePage = () => {
                 </div>
             )}
         </div>
-    )
+    );
 };
 
 export default MyVotePage;

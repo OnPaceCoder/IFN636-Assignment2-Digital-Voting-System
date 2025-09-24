@@ -270,3 +270,68 @@ exports.withdrawVote = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 };
+
+
+// Get vote status for a specific election OR all votes
+exports.getVoteStatus = async (req, res) => {
+    try {
+        const voterId = req.user.id; // from JWT middleware
+        const { electionId } = req.query;
+
+        if (electionId) {
+            // Case 1: Specific election
+            const vote = await VoteModel.findOne({ voterId, electionId }).populate("candidateId");
+            if (!vote) {
+                return res.json({ hasVoted: false, vote: null });
+            }
+
+            return res.json({
+                hasVoted: true,
+                vote: {
+                    _id: vote._id,
+                    candidateId: vote.candidateId?._id,
+                    candidateName: vote.candidateId?.name,
+                    position: vote.candidateId?.position,
+                    photoUrl: vote.candidateId?.photoUrl,
+                    manifesto: vote.candidateId?.manifesto,
+                    when: vote.createdAt
+                }
+            });
+        }
+
+        // Case 2: All elections 
+        const votes = await VoteModel.find({ voterId })
+            .populate("candidateId")
+            .populate("electionId");
+
+        if (!votes.length) {
+            return res.json({ hasVoted: false, votes: [] });
+        }
+
+        const history = votes.map((voteDoc) => ({
+            _id: voteDoc._id,
+            candidateId: voteDoc.candidateId?._id,
+            candidateName: voteDoc.candidateId?.name,
+            position: voteDoc.candidateId?.position,
+            photoUrl: voteDoc.candidateId?.photoUrl,
+            manifesto: voteDoc.candidateId?.manifesto,
+            when: voteDoc.createdAt,
+            election: voteDoc.electionId
+                ? {
+                    id: voteDoc.electionId._id,
+                    title: voteDoc.electionId.title,
+                    description: voteDoc.electionId.description,
+                    isOpen: voteDoc.electionId.isOpen
+                }
+                : null
+        }));
+
+        res.json({
+            hasVoted: true,
+            votes: history
+        });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+

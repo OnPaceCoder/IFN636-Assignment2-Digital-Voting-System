@@ -102,6 +102,7 @@ const VotePage = () => {
                 const token = user?.token || localStorage.getItem("token");
                 const { data } = await axiosInstance.get("/api/vote/status", {
                     headers: token ? { Authorization: `Bearer ${token}` } : {},
+                    params: { electionId },
                 });
                 if (data?.hasVoted) {
                     setVotedForId(data.vote.candidateId);
@@ -123,7 +124,7 @@ const VotePage = () => {
         try {
             setSubmitting(true);
             const token = user?.token;
-            await axiosInstance.post(`/api/vote/${selected._id}`, {}, {
+            await axiosInstance.post(`/api/vote`, { candidateId: selected._id, electionId }, {
                 headers: token ? { Authorization: `Bearer ${token}` } : {},
             });
             alert("Your vote has been submitted. Thank you!");
