@@ -67,7 +67,7 @@ const getAllCandidates = async (req, res) => {
         const filter = {};
 
         // Voters only see active candidates
-        if (!req.user?.isAdmin) {
+        if (req.user?.role !== "Admin") {
             filter.status = "active";
         }
 
@@ -85,7 +85,7 @@ const getAllCandidates = async (req, res) => {
         }
 
         // Status filter (Admins can query all, Voters restricted above)
-        if (status && req.user?.isAdmin) {
+        if (status && req.user?.role === "Admin") {
             filter.status = status;
         }
 
@@ -94,12 +94,25 @@ const getAllCandidates = async (req, res) => {
         const skip = (pageNum - 1) * limitNum;
 
         const [items, total] = await Promise.all([
-            CandidateModel.find(filter).sort("-createdAt").skip(skip).limit(limitNum),
+            CandidateModel.find(filter).populate("electionId", "title").sort("-createdAt").skip(skip).limit(limitNum),
             CandidateModel.countDocuments(filter)
         ]);
 
+        const formattedItems = items.map(c => ({
+            _id: c._id,
+            name: c.name,
+            position: c.position,
+            manifesto: c.manifesto,
+            photoUrl: c.photoUrl,
+            status: c.status,
+            voteCount: c.voteCount,
+            electionId: c.electionId?._id,
+            electionTitle: c.electionId?.title,
+            createdAt: c.createdAt
+        }));
+
         res.status(200).json({
-            items,
+            items: formattedItems,
             total,
             page: pageNum,
             pages: Math.ceil(total / limitNum),

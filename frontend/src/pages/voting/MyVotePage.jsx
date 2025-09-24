@@ -81,11 +81,11 @@ const MyVotePage = () => {
             setSubmitting(true);
             const token = user?.token || localStorage.getItem("token");
 
-            await axiosInstance.put("/api/vote", {
+            await axiosInstance.patch("/api/vote", {
                 newCandidateId: selected._id,
                 electionId: activeElection.id,
             }, {
-                headers: token ? { Authorization: `Bearer ${token}` } : {},
+                headers: token ? { Authorization: `Bearer ${token}`, "Content-Type": "application/json" } : {},
             });
 
             // Refresh votes after change

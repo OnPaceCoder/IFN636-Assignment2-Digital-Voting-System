@@ -148,7 +148,7 @@ exports.updateVote = async (req, res) => {
     try {
         const { newCandidateId, electionId } = req.body;
         const voterId = req.user.id; // from JWT middleware
-
+        console.log("Update vote request:", { voterId, electionId, newCandidateId });
         // Finding existing vote
         const existingVote = await VoteModel.findOne({ voterId, electionId });
         if (!existingVote) {

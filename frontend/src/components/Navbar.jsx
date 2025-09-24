@@ -4,7 +4,6 @@ import { useAuth } from '../context/AuthContext';
 const Navbar = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
-
   const handleLogout = () => {
     logout();
     navigate('/login');
@@ -30,7 +29,7 @@ const Navbar = () => {
               >
                 Profile
               </Link>
-              {user?.isAdmin && (<Link
+              {user?.user?.role === "Admin" && (<Link
                 to="/list-candidates"
                 className="hidden sm:inline-flex rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
               >
