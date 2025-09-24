@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ElectionDropdown from "./ElectionDropdown";
 
 const CandidateForm = ({ onSubmit }) => {
     const [formData, setFormData] = useState({
@@ -6,15 +7,26 @@ const CandidateForm = ({ onSubmit }) => {
         position: "",
         manifesto: "",
         photoUrl: "",
-        status: "active"
+        status: "active",
+        electionId: ""
     });
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
+    const handleElectionChange = (electionId) => {
+        setFormData({ ...formData, electionId });
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        if (!formData.electionId) {
+            alert("Please select an election");
+            return;
+        }
+
         console.log("Form submitted with data:", formData);
         onSubmit(formData);
     };
@@ -85,6 +97,11 @@ const CandidateForm = ({ onSubmit }) => {
                         <option value="withdrawn">Withdrawn</option>
                     </select>
                 </div>
+
+                <ElectionDropdown
+                    value={formData.electionId}
+                    onChange={handleElectionChange}
+                />
 
                 <button
                     type="submit"
