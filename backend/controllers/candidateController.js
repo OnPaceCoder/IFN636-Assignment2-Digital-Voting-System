@@ -63,7 +63,7 @@ const addCandidate = async (req, res) => {
 
 const getAllCandidates = async (req, res) => {
     try {
-        const { q = "", status = "", page = 1, limit = 10 } = req.query;
+        const { q = "", status = "", page = 1, limit = 10, electionId } = req.query;
         const filter = {};
 
         // Voters only see active candidates
@@ -77,6 +77,11 @@ const getAllCandidates = async (req, res) => {
                 { name: { $regex: q, $options: "i" } },
                 { position: { $regex: q, $options: "i" } }
             ];
+        }
+
+        // Election filter
+        if (electionId) {
+            filter.electionId = electionId;
         }
 
         // Status filter (Admins can query all, Voters restricted above)

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axiosInstance from "../../axiosConfig";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const CandidateCard = ({ candidate, onVote, votedForId }) => {
     const isVoted = votedForId === candidate._id;
@@ -51,7 +52,7 @@ const CandidateCard = ({ candidate, onVote, votedForId }) => {
 const VotePage = () => {
     const { user } = useAuth();
     const navigate = useNavigate();
-
+    const { electionId } = useParams();
     const [loading, setLoading] = useState(true);
     const [err, setErr] = useState("");
     const [candidates, setCandidates] = useState([]);
@@ -81,7 +82,7 @@ const VotePage = () => {
                 const token = user?.token;
                 const { data } = await axiosInstance.get("/api/candidate", {
                     headers: token ? { Authorization: `Bearer ${token}` } : {},
-                    params: { q, page, limit },
+                    params: { q, page, limit, electionId },
                 });
                 setCandidates(data.items || []);
                 setTotalPages(data.pages || 1);
