@@ -39,6 +39,11 @@ const AdminDashboardPage = () => {
             description: "View and export election results.",
             path: "/results",
         },
+        {
+            title: "Archived Elections",
+            description: "View archieved election data.",
+            path: "/archived-elections",
+        },
     ];
 
     return (
