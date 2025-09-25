@@ -34,7 +34,7 @@ exports.toggleElection = async (req, res) => {
     try {
 
         // Extract electionId and isOpen from request body
-        const { electionId, isOpen } = req.body;
+        const { electionId, isOpen, title, description } = req.body;
         const currentUser = new Admin(req.user.id, req.user.name, req.user.email, "");
 
         // Wrap in Proxy
@@ -45,7 +45,7 @@ exports.toggleElection = async (req, res) => {
         const result = await proxy.performAdminAction(async () => {
             const election = await ElectionModel.findByIdAndUpdate(
                 electionId,
-                { isOpen },
+                { isOpen, title, description },
                 { new: true }
             );
             if (!election) throw new Error("Election not found");

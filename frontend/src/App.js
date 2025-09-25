@@ -13,6 +13,8 @@ import ElectionListPage from './pages/elections/ListElections';
 import AdminDashboardPage from './pages/Dashboard/Dashboard';
 import AdminElectionsList from './pages/elections/AdminListElection';
 import CreateElectionPage from './pages/elections/AddElection';
+import EditElectionPage from './pages/elections/EditElectionPage';
+import ArchiveElection from './pages/elections/ArchiveElection';
 
 function App() {
   return (
@@ -29,7 +31,8 @@ function App() {
         <Route path="/elections" element={<ElectionListPage />} />
         <Route path="/create-election" element={<CreateElectionPage />} />
         <Route path="/list-elections" element={<AdminElectionsList />} />
-        <Route path="/update-election/:id/edit" element={<AdminElectionsList />} />
+        <Route path="/update-election/:id/edit" element={<EditElectionPage />} />
+        <Route path="/archived-elections" element={<ArchiveElection />} />
         <Route path="/elections/:electionId" element={<VotePage />} />
         <Route path="/add-vote" element={<VotePage />} />
         <Route path="/my-vote" element={<MyVotePage />} />
