@@ -12,6 +12,7 @@ import LandingPage from './pages/LandingPage';
 import ElectionListPage from './pages/elections/ListElections';
 import AdminDashboardPage from './pages/Dashboard/Dashboard';
 import AdminElectionsList from './pages/elections/AdminListElection';
+import CreateElectionPage from './pages/elections/AddElection';
 
 function App() {
   return (
@@ -26,7 +27,9 @@ function App() {
         <Route path="/list-candidates" element={<AdminCandidatesList />} />
         <Route path="/update-candidate/:id/edit" element={<EditCandidatePage />} />
         <Route path="/elections" element={<ElectionListPage />} />
+        <Route path="/create-election" element={<CreateElectionPage />} />
         <Route path="/list-elections" element={<AdminElectionsList />} />
+        <Route path="/update-election/:id/edit" element={<AdminElectionsList />} />
         <Route path="/elections/:electionId" element={<VotePage />} />
         <Route path="/add-vote" element={<VotePage />} />
         <Route path="/my-vote" element={<MyVotePage />} />
