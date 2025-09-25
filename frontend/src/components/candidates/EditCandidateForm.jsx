@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
+import ElectionDropdown from "./ElectionDropdown";
 
 const EditCandidateForm = ({ initialValues, onSubmit }) => {
     const [formData, setFormData] = useState({
@@ -7,6 +8,7 @@ const EditCandidateForm = ({ initialValues, onSubmit }) => {
         manifesto: "",
         photoUrl: "",
         status: "active",
+        electionId: ""
     });
 
     useEffect(() => {
@@ -17,6 +19,7 @@ const EditCandidateForm = ({ initialValues, onSubmit }) => {
                 manifesto: initialValues.manifesto || "",
                 photoUrl: initialValues.photoUrl || "",
                 status: initialValues.status || "active",
+                electionId: initialValues.electionId || ""
             });
         }
     }, [initialValues]);
@@ -39,6 +42,9 @@ const EditCandidateForm = ({ initialValues, onSubmit }) => {
         onSubmit(changedPayload);
     };
 
+    const handleElectionChange = (electionId) => {
+        setFormData((prev) => ({ ...prev, electionId }));
+    };
     return (
         <div className="max-w-lg mx-auto bg-white shadow-md rounded-lg p-6">
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -101,6 +107,13 @@ const EditCandidateForm = ({ initialValues, onSubmit }) => {
                         <option value="withdrawn">Withdrawn</option>
                     </select>
                 </div>
+                <div>
+                    <ElectionDropdown
+                        value={formData.electionId}
+                        onChange={handleElectionChange}
+                    />
+                </div>
+
 
                 <button
                     type="submit"

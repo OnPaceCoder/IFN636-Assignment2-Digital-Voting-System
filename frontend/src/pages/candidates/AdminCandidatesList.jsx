@@ -150,7 +150,7 @@ const AdminCandidatesList = () => {
                                             <td className="px-4 py-3 text-right">
                                                 <div className="inline-flex gap-2">
                                                     <button
-                                                        onClick={() => navigate(`/update-candidate/${c._id}/edit`)}
+                                                        onClick={() => navigate(`/update-candidate/${c._id}/edit`, { state: { candidate: c } })}
                                                         className="rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-50"
                                                     >
                                                         Edit
