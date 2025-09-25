@@ -30,7 +30,7 @@ const Navbar = () => {
                 Profile
               </Link>
               {user?.user?.role === "Admin" && (<Link
-                to="/list-candidates"
+                to="/dashboard"
                 className="hidden sm:inline-flex rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
               >
                 Dashboard

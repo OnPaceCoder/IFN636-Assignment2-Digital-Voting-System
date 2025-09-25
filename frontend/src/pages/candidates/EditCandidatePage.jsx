@@ -1,49 +1,28 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import axiosInstance from "../../axiosConfig";
 import { useAuth } from "../../context/AuthContext";
 import EditCandidateForm from "../../components/candidates/EditCandidateForm";
 
 const EditCandidatePage = () => {
     const navigate = useNavigate();
-    const { id } = useParams();
+    const { id } = useParams(); // still useful for patching
     const { user } = useAuth();
+    const { state } = useLocation(); // 👈 candidate comes from here
 
-    const [loading, setLoading] = useState(true);
-    const [err, setErr] = useState("");
-    const [candidate, setCandidate] = useState(null);
+    const [candidate, setCandidate] = useState(state?.candidate || null);
 
     // Check if user is admin
     useEffect(() => {
         if (!user) navigate("/login");
-        else if (!user.isAdmin) navigate("/");
+        else if (user?.user?.role !== "Admin") navigate("/");
     }, [user, navigate]);
-
-    // Fetch candidate
-    useEffect(() => {
-        const fetchOne = async () => {
-            try {
-                setLoading(true);
-                setErr("");
-                const token = user?.token;
-                const { data } = await axiosInstance.get(`/api/candidate/${id}`, {
-                    headers: token ? { Authorization: `Bearer ${token}` } : {},
-                });
-                setCandidate(data);
-            } catch (e) {
-                setErr(e?.response?.data?.message || "Failed to load candidate");
-            } finally {
-                setLoading(false);
-            }
-        };
-        if (id) fetchOne();
-    }, [id, user]);
 
     // Integration of backend API for updating candidate
     const handleUpdate = async (payload) => {
         try {
             const token = user?.token;
-            await axiosInstance.patch(`/api/candidate/${id}`, payload, {
+            await axiosInstance.put(`/api/candidate/${id}`, payload, {
                 headers: token ? { Authorization: `Bearer ${token}` } : {},
             });
             alert("Candidate updated successfully!");
@@ -69,12 +48,8 @@ const EditCandidatePage = () => {
 
                 {/* Body */}
                 <div className="bg-white shadow-md rounded-lg p-6">
-                    {loading ? (
-                        <p className="text-gray-600">Loading…</p>
-                    ) : err ? (
-                        <p className="text-red-600">{err}</p>
-                    ) : !candidate ? (
-                        <p className="text-gray-600">Candidate not found.</p>
+                    {!candidate ? (
+                        <p className="text-gray-600">Candidate not found. Please go back.</p>
                     ) : (
                         <EditCandidateForm
                             initialValues={candidate}
