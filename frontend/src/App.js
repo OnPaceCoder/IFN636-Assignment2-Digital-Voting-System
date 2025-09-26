@@ -16,6 +16,8 @@ import CreateElectionPage from './pages/elections/AddElection';
 import EditElectionPage from './pages/elections/EditElectionPage';
 import ArchiveElection from './pages/elections/ArchiveElection';
 import ElectionResultsPage from './pages/elections/AdminResultsPage';
+import UserFeedbackPage from './pages/Feedback/UserFeedbackPage';
+import AdminFeedbackPage from './pages/Feedback/AdminFeedbackPage';
 
 function App() {
   return (
@@ -39,6 +41,8 @@ function App() {
         <Route path="/my-vote" element={<MyVotePage />} />
         <Route path='/dashboard' element={<AdminDashboardPage />} />
         <Route path='/results' element={<ElectionResultsPage />} />
+        <Route path='/admin-feedback' element={<AdminFeedbackPage />} />
+        <Route path='/feedback' element={<UserFeedbackPage />} />
 
       </Routes>
     </Router>
