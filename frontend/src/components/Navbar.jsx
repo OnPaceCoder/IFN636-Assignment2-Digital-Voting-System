@@ -54,6 +54,12 @@ const Navbar = () => {
               >
                 Elections
               </Link>
+              <Link
+                to="/feedback"
+                className="hidden sm:inline-flex rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
+              >
+                Feedback
+              </Link>
 
               <button
                 onClick={handleLogout}

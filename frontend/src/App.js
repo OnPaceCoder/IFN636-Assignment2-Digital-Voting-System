@@ -15,6 +15,7 @@ import AdminElectionsList from './pages/elections/AdminListElection';
 import CreateElectionPage from './pages/elections/AddElection';
 import EditElectionPage from './pages/elections/EditElectionPage';
 import ArchiveElection from './pages/elections/ArchiveElection';
+import ElectionResultsPage from './pages/elections/AdminResultsPage';
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
         <Route path="/add-vote" element={<VotePage />} />
         <Route path="/my-vote" element={<MyVotePage />} />
         <Route path='/dashboard' element={<AdminDashboardPage />} />
+        <Route path='/results' element={<ElectionResultsPage />} />
 
       </Routes>
     </Router>

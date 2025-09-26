@@ -67,6 +67,9 @@ const ArchiveElection = () => {
                                         Winner
                                     </th>
                                     <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-600">
+                                        Position
+                                    </th>
+                                    <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-600">
                                         Votes
                                     </th>
                                 </tr>
@@ -101,6 +104,9 @@ const ArchiveElection = () => {
                                             </td>
                                             <td className="px-4 py-3 text-gray-700">
                                                 {res.winner ? res.winner.name : "No winner"}
+                                            </td>
+                                            <td className="px-4 py-3 text-gray-700">
+                                                {res.winner ? res.winner.position : "No position"}
                                             </td>
                                             <td className="px-4 py-3 text-gray-700">
                                                 {res.winner ? res.winner.voteCount : "-"}

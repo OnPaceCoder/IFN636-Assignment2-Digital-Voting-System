@@ -172,7 +172,6 @@ exports.getAllElectionResults = async (req, res) => {
         for (const election of elections) {
             // Fetch candidates for this election
             const candidates = await CandidateModel.find({ electionId: election._id }).lean();
-
             let winner = null;
             if (candidates.length > 0) {
                 // Find candidate with highest voteCount
@@ -189,7 +188,8 @@ exports.getAllElectionResults = async (req, res) => {
                     ? {
                         candidateId: winner._id,
                         name: winner.name,
-                        voteCount: winner.voteCount
+                        voteCount: winner.voteCount,
+                        position: winner.position
                     }
                     : null
             });
