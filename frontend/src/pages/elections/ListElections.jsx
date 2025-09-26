@@ -39,7 +39,7 @@ const ElectionListPage = () => {
             try {
                 setLoading(true);
 
-                // ✅ get token safely (from context or localStorage)
+                // get token safely (from context or localStorage)
                 const token = user?.token || localStorage.getItem("token");
 
                 const { data } = await axiosInstance.get("/api/election", {

@@ -121,7 +121,6 @@ const AdminCandidatesList = () => {
                                     <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-600">Name</th>
                                     <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-600">Position</th>
                                     <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-600">Status</th>
-                                    <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-600">Votes</th>
                                     <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-600">Election</th>
                                     <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-wider text-gray-600">Actions</th>
                                 </tr>
@@ -145,7 +144,6 @@ const AdminCandidatesList = () => {
                                                     {c.status}
                                                 </span>
                                             </td>
-                                            <td className="px-4 py-3 text-gray-700">{c.voteCount ?? 0}</td>
                                             <td className="px-4 py-3 text-gray-700">{c.electionTitle ?? 0}</td>
                                             <td className="px-4 py-3 text-right">
                                                 <div className="inline-flex gap-2">

@@ -32,7 +32,7 @@ const AdminDashboardPage = () => {
         {
             title: "Feedback",
             description: "View feedback submitted by users.",
-            path: "/feedback",
+            path: "/admin-feedback",
         },
         {
             title: "Results",
