@@ -47,3 +47,27 @@ exports.getAllFeedback = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 };
+
+// DELETE /feedback/:id (admin)
+exports.deleteFeedback = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        // Ensure only admin can access
+        const currentUser = new Admin(req.user.id, req.user.name, req.user.email, "");
+        const proxy = new AdminProxy(currentUser);
+
+        const result = await proxy.performAdminAction(async () => {
+            const feedback = await Feedback.findByIdAndDelete(id);
+            if (!feedback) throw new Error("Feedback not found");
+            return feedback;
+        });
+
+        res.status(200).json({
+            message: "Feedback deleted successfully",
+            feedback: result
+        });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
