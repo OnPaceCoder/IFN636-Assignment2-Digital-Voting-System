@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { addFeedback, getAllFeedback, deleteFeedback } = require("../controllers/feedbackController");
+const { addFeedback, getAllFeedback, deleteFeedback, getFeedbackByUser } = require("../controllers/feedbackController");
 const authMiddleware = require("../middleware/authMiddleware");
 const loggerMiddleware = require("../middleware/loggerMiddleware");
 
@@ -12,4 +12,7 @@ router.get("/", loggerMiddleware, authMiddleware, getAllFeedback);
 
 // Admin can delete feedback by ID
 router.delete("/:id", loggerMiddleware, authMiddleware, deleteFeedback);
+
+// User can view their own feedback 
+router.get("/my/:userId", loggerMiddleware, authMiddleware, getFeedbackByUser);
 module.exports = router;

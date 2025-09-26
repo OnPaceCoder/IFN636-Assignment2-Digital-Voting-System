@@ -71,3 +71,25 @@ exports.deleteFeedback = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 };
+
+
+// GET /feedback/user/:userId (admin or self)
+exports.getFeedbackByUser = async (req, res) => {
+    try {
+        const { userId } = req.params;
+
+
+        const feedbacks = await Feedback.find({ userId }).populate("userId", "name email");
+
+        if (!feedbacks || feedbacks.length === 0) {
+            return res.status(404).json({ message: "No feedback found for this user" });
+        }
+
+        res.status(200).json({
+            count: feedbacks.length,
+            feedbacks
+        });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
