@@ -16,25 +16,30 @@ exports.castVote = async (req, res) => {
     try {
         const { candidateId, electionId } = req.body;
 
+        // Check for missing fields
+        if (!candidateId || !electionId) {
+            return res.status(400).json({ error: "CandidateId and ElectionId are required" })
+        }
+
         const voterId = req.user.id; // from JWT middleware
 
         // Check election validity
         const election = await ElectionModel.findById(electionId).populate("candidates");
         if (!election) return res.status(404).json({ error: "Election not found" });
-        if (!election.isOpen) return res.status(400).json({ error: "Election is closed" });
+        if (!election.isOpen) return res.status(403).json({ error: "Election is closed" });
 
         //  Ensure candidate belongs to election
         const candidateDoc = election.candidates.find(
             (c) => c._id.toString() === candidateId
         );
         if (!candidateDoc) {
-            return res.status(400).json({ error: "Candidate does not belong to this election" });
+            return res.status(404).json({ error: "Candidate does not belong to this election" });
         }
 
         //  Prevent duplicate vote in same election
         const existingVote = await VoteModel.findOne({ voterId, electionId });
         if (existingVote) {
-            return res.status(400).json({ error: "You already voted in this election" });
+            return res.status(409).json({ error: "You already voted in this election" });
         }
 
         // Use OOP Candidate class to add vote
@@ -147,6 +152,12 @@ exports.viewMyVote = async (req, res) => {
 exports.updateVote = async (req, res) => {
     try {
         const { newCandidateId, electionId } = req.body;
+
+        // Check for missing fields
+        if (!newCandidateId || !electionId) {
+            return res.status(400).json({ error: "newCandidateId and electionId are required" });
+        }
+
         const voterId = req.user.id; // from JWT middleware
         console.log("Update vote request:", { voterId, electionId, newCandidateId });
         // Finding existing vote
@@ -229,6 +240,12 @@ exports.updateVote = async (req, res) => {
 exports.withdrawVote = async (req, res) => {
     try {
         const { electionId } = req.body;
+
+        //  Check for missing fields
+        if (!electionId) {
+            return res.status(400).json({ error: "electionId is required" });
+        }
+
         const voterId = req.user.id; // from JWT middleware
 
         // Find existing vote
@@ -334,4 +351,3 @@ exports.getVoteStatus = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 };
-
