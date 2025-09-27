@@ -9,13 +9,21 @@ const addCandidate = async (req, res) => {
     try {
         // Extract candidate details from request body
         const { name, position, manifesto, photoUrl, electionId } = req.body;
+
+        // Required filds check
+        if (!name || !position || !electionId) {
+            return res.status(400).json({ error: "Name, position, and electionId are required" });
+        }
         const currentUser = new Admin(req.user.id, req.user.name, req.user.email, "");
 
         // Wrap in Proxy
         const proxy = new AdminProxy(currentUser);
 
+        // Check election exists
         const electionDoc = await ElectionModel.findById(electionId);
-        if (!electionDoc) throw new Error("Election not found");
+        if (!electionDoc) {
+            return res.status(404).json({ error: "Election not found" });
+        }
 
         const result = await proxy.performAdminAction(async () => {
             // OOP Candidate object
@@ -63,6 +71,7 @@ const addCandidate = async (req, res) => {
 
 const getAllCandidates = async (req, res) => {
     try {
+        // Extract query params
         const { q = "", status = "", page = 1, limit = 10, electionId } = req.query;
         const filter = {};
 
@@ -173,11 +182,20 @@ const updateCandidate = async (req, res) => {
         const { id } = req.params; // candidate id
         const { name, position, manifesto, photoUrl, status, electionId } = req.body;
 
+        // Check at least one field to update
+        if (!name && !position && !manifesto && !photoUrl && !status && !electionId) {
+            return res.status(400).json({ error: "At least one field must be provided for update" });
+        }
+
+        // Current user as OOP Admin
         const currentUser = new Admin(req.user.id, req.user.name, req.user.email, "");
         const proxy = new AdminProxy(currentUser);
 
+        // Get candidate from DB
         const candidateDoc = await CandidateModel.findById(id);
-        if (!candidateDoc) throw new Error("Candidate not found");
+        if (!candidateDoc) {
+            return res.status(404).json({ error: "Candidate not found" });
+        }
 
         const result = await proxy.performAdminAction(async () => {
             // Update candidate fields
@@ -225,8 +243,11 @@ const deleteCandidate = async (req, res) => {
         // Wrap in Proxy
         const proxy = new AdminProxy(currentUser);
 
+        // Check candidate exists
         const candidateDoc = await CandidateModel.findById(id);
-        if (!candidateDoc) throw new Error("Candidate not found");
+        if (!candidateDoc) {
+            return res.status(404).json({ error: "Candidate not found" });
+        }
 
         const result = await proxy.performAdminAction(async () => {
             // Remove candidate from DB
