@@ -206,7 +206,7 @@ describe("DeleteCandidate Controller", () => {
     });
 
     // T009 - Internal error or exception
-    it("T009: should return 403 if an error occurs", async () => {
+    it("T009: should return 500 if an error occurs", async () => {
         const req = { params: { id: "123" }, user: { id: "u1" } };
         sinon.stub(CandidateSchema, "findById").throws(new Error("DB error"));
 
@@ -214,7 +214,7 @@ describe("DeleteCandidate Controller", () => {
 
         await deleteCandidate(req, res);
 
-        expect(res.status.calledWith(403)).to.be.true;
+        expect(res.status.calledWith(500)).to.be.true;
         expect(res.json.calledWithMatch({ error: "DB error" })).to.be.true;
     });
 });
