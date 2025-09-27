@@ -3,7 +3,7 @@ const sinon = require("sinon");
 const mongoose = require("mongoose");
 const { expect } = chai;
 
-const { addCandidate, getCandidateById, deleteCandidate } = require("../controllers/candidateController");
+const { addCandidate, getCandidateById, deleteCandidate, updateCandidate } = require("../controllers/candidateController");
 const ElectionSchema = require("../models/ElectionSchema");
 const CandidateSchema = require("../models/CandidateSchema");
 const { AdminProxy } = require("../controllers/authController");
@@ -216,6 +216,80 @@ describe("DeleteCandidate Controller", () => {
 
         expect(res.status.calledWith(403)).to.be.true;
         expect(res.json.calledWithMatch({ error: "DB error" })).to.be.true;
+    });
+});
+
+// UpdateCandidate Tests 
+describe("UpdateCandidate Controller", () => {
+    afterEach(() => {
+        sinon.restore();
+    });
+
+    // T010 - Successful update
+    it("T010: should update candidate successfully when valid data provided", async () => {
+        const req = {
+            params: { id: new mongoose.Types.ObjectId() },
+            body: { name: "Updated Name" },
+            user: { id: "1", name: "Admin", email: "admin@test.com" }
+        };
+
+        // candidate details
+        const candidateDoc = {
+            _id: req.params.id,
+            name: "Old Name",
+            save: sinon.stub().resolves(),
+            position: "President",
+            manifesto: "Old manifesto",
+            photoUrl: "old.jpg",
+            status: "active",
+            voteCount: 0,
+            electionId: "e1"
+        };
+
+        sinon.stub(CandidateSchema, "findById").resolves(candidateDoc);
+        sinon.stub(AdminProxy.prototype, "performAdminAction").callsFake(cb => cb());
+
+        const res = { status: sinon.stub().returnsThis(), json: sinon.spy() };
+
+        await updateCandidate(req, res);
+
+        expect(candidateDoc.name).to.equal("Updated Name");
+        expect(res.status.calledWith(200)).to.be.true;
+        expect(res.json.calledWithMatch({ message: "Candidate updated successfully" })).to.be.true;
+    });
+
+    // T011 - No fields provided
+    it("T011: should return 400 if no fields provided for update", async () => {
+        const req = {
+            params: { id: "123" },
+            body: {},
+            user: { id: "1" }
+        };
+
+        const res = { status: sinon.stub().returnsThis(), json: sinon.spy() };
+
+        await updateCandidate(req, res);
+
+        expect(res.status.calledWith(400)).to.be.true;
+        expect(res.json.calledWithMatch({ error: "At least one field must be provided for update" })).to.be.true;
+    });
+
+    // T012 - Candidate not found
+    it("T012: should return 404 if candidate does not exist", async () => {
+        const req = {
+            params: { id: "999" },
+            body: { name: "New Name" },
+            user: { id: "1" }
+        };
+
+        sinon.stub(CandidateSchema, "findById").resolves(null);
+
+        const res = { status: sinon.stub().returnsThis(), json: sinon.spy() };
+
+        await updateCandidate(req, res);
+
+        expect(res.status.calledWith(404)).to.be.true;
+        expect(res.json.calledWithMatch({ error: "Candidate not found" })).to.be.true;
     });
 });
 
