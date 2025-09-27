@@ -9,6 +9,11 @@ exports.createElection = async (req, res) => {
     try {
         // Extract election details from request body
         const { title, description } = req.body;
+
+        // Check for missing fields
+        if (!title || !description) {
+            return res.status(400).json({ error: "Title and description are required" });
+        }
         const currentUser = new Admin(req.user.id, req.user.name, req.user.email, "");
 
         // Wrap in Proxy
@@ -24,7 +29,7 @@ exports.createElection = async (req, res) => {
         // Send response
         res.status(201).json({ message: "Election created", election: result });
     } catch (err) {
-        res.status(403).json({ error: err.message });
+        res.status(500).json({ error: err.message });
     }
 };
 
@@ -35,6 +40,12 @@ exports.toggleElection = async (req, res) => {
 
         // Extract electionId and isOpen from request body
         const { electionId, isOpen, title, description } = req.body;
+
+        // Check for missing fields
+        if (!electionId || typeof isOpen !== "boolean") {
+            return res.status(400).json({ error: "electionId and isOpen are required" });
+        }
+
         const currentUser = new Admin(req.user.id, req.user.name, req.user.email, "");
 
         // Wrap in Proxy
@@ -48,17 +59,17 @@ exports.toggleElection = async (req, res) => {
                 { isOpen, title, description },
                 { new: true }
             );
-            if (!election) throw new Error("Election not found");
+            if (!election) return res.status(404).json({ error: "Election not found" });
             return election;
         });
 
         // Send response
-        res.json({
+        res.status(200).json({
             message: `Election ${result.isOpen ? "opened" : "closed"}`,
             election: result
         });
     } catch (err) {
-        res.status(403).json({ error: err.message });
+        res.status(500).json({ error: err.message });
     }
 };
 
@@ -97,12 +108,12 @@ exports.deleteElection = async (req, res) => {
         // Perform admin action via proxy
         const result = await proxy.performAdminAction(async () => {
             const election = await ElectionModel.findByIdAndDelete(id);
-            if (!election) throw new Error("Election not found");
+            if (!election) return res.status(404).json({ error: "Election not found" });
             return election;
         });
         // Send response
-        res.json({ message: "Election deleted", election: result });
+        res.status(200).json({ message: "Election deleted", election: result });
     } catch (err) {
-        res.status(403).json({ error: err.message });
+        res.status(500).json({ error: err.message });
     }
 }
