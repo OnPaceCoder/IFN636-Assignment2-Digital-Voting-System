@@ -9,6 +9,11 @@ exports.createElection = async (req, res) => {
     try {
         // Extract election details from request body
         const { title, description } = req.body;
+
+        // Check for missing fields
+        if (!title || !description) {
+            return res.status(400).json({ error: "Title and description are required" });
+        }
         const currentUser = new Admin(req.user.id, req.user.name, req.user.email, "");
 
         // Wrap in Proxy
