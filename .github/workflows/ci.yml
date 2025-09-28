@@ -47,7 +47,7 @@ jobs:
                   yarn install
                   yarn run build
 
-            # Run backend tests
+            # Run backend tests to run test files
             - name: Run Backend Tests
               working-directory: ./backend
               run: npm run test
