@@ -40,7 +40,7 @@ exports.viewResults = async (req, res) => {
         // Get sorted results
         const results = calculator.getResults(candidates);
 
-        res.json({
+        res.status(200).json({
             electionId,
             method: method || "vote",
             results
@@ -115,7 +115,7 @@ exports.exportResults = async (req, res) => {
         }
 
         // Default = JSON
-        res.json({ electionId, method: method || "vote", results });
+        res.status(200).json({ electionId, method: method || "vote", results });
 
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -149,7 +149,7 @@ exports.getVoteStats = async (req, res) => {
             ? ((totalVotesCast / eligibleVoters) * 100).toFixed(2)
             : 0;
 
-        res.json({
+        res.status(200).json({
             electionId,
             eligibleVoters,
             totalVotesCast,
@@ -167,6 +167,9 @@ exports.getAllElectionResults = async (req, res) => {
         // Get all elections (past and present  )
         const elections = await ElectionModel.find().lean();
 
+        if (!elections.length) {
+            return res.status(404).json({ error: "No elections found" });
+        }
         const results = [];
 
         for (const election of elections) {
@@ -195,7 +198,7 @@ exports.getAllElectionResults = async (req, res) => {
             });
         }
 
-        res.json({ results });
+        res.status(200).json({ results });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
