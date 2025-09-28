@@ -12,7 +12,7 @@ describe("CreateElection Controller", () => {
     afterEach(() => sinon.restore());
 
     // T013 - Successful election creation
-    it("T013: should create a new election successfully", async () => {
+    it("T013: should return 201 with creating a new election successfully", async () => {
         const req = {
             user: { id: new mongoose.Types.ObjectId(), name: "Admin", email: "admin@test.com" },
             body: { title: "Student Council 2025", description: "Annual election" }
@@ -64,7 +64,7 @@ describe("ToggleElection Controller", () => {
     afterEach(() => sinon.restore());
 
     // T016 - Successful toggle
-    it("T016: should update election and return 200", async () => {
+    it("T016: should return 200 with updating election and return 200", async () => {
         const req = {
             user: { id: new mongoose.Types.ObjectId(), name: "Admin", email: "admin@test.com" },
             body: { electionId: "123", isOpen: true, title: "Updated Title", description: "Updated Desc" }
@@ -162,7 +162,7 @@ describe("DeleteElection Controller", () => {
     afterEach(() => sinon.restore());
 
     // T022 - Successful deletion
-    it("T022: should delete election successfully", async () => {
+    it("T022: should return 200 with deleting election successfully", async () => {
         const req = { user: { id: new mongoose.Types.ObjectId() }, params: { id: "123" } };
         const deletedElection = { _id: "123", title: "Test Election", description: "Desc" };
 
