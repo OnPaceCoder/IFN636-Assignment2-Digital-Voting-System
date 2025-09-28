@@ -12,7 +12,7 @@ describe("AddCandidate Controller", () => {
     afterEach(() => sinon.restore());
 
     // T001 - Create candidate successfully
-    it("T001: should create a new candidate successfully", async () => {
+    it("T001: should return 201 with create a new candidate successfully", async () => {
         const req = {
             user: { id: new mongoose.Types.ObjectId() },
             body: { name: "Priyank", position: "President", manifesto: "Test", photoUrl: "pic.jpg", electionId: "123" }
@@ -58,7 +58,7 @@ describe("GetCandidateById Controller", () => {
     afterEach(() => sinon.restore());
 
     // T004 - Candidate found
-    it("T004: should return candidate details successfully", async () => {
+    it("T004: should return 200 with candidate details successfully", async () => {
         const candidateDoc = { _id: "123", name: "Alice", position: "President", voteCount: 5 };
         sinon.stub(CandidateSchema, "findById").resolves(candidateDoc);
 
@@ -104,7 +104,7 @@ describe("DeleteCandidate Controller", () => {
     afterEach(() => sinon.restore());
 
     // T007 - Candidate deleted successfully
-    it("T007: should delete candidate successfully", async () => {
+    it("T007: should return 200 with deleting candidate successfully", async () => {
         const candidateDoc = { _id: "123", electionId: "e1" };
         sinon.stub(CandidateSchema, "findById").resolves(candidateDoc);
         sinon.stub(CandidateSchema, "findByIdAndDelete").resolves(candidateDoc);
@@ -152,7 +152,7 @@ describe("UpdateCandidate Controller", () => {
     afterEach(() => sinon.restore());
 
     // T010 - Successful update
-    it("T010: should update candidate successfully when valid data provided", async () => {
+    it("T010: should return 200 with updating candidate successfully", async () => {
         const candidateDoc = { _id: "123", name: "Old", save: sinon.stub().resolves() };
         sinon.stub(CandidateSchema, "findById").resolves(candidateDoc);
         sinon.stub(AdminProxy.prototype, "performAdminAction").callsFake(cb => cb());
