@@ -1,32 +1,41 @@
 const express = require("express");
 const router = express.Router();
-const { addCandidate, getAllCandidates, getCandidateById, updateCandidate, deleteCandidate } = require("../controllers/candidateController");
-const authMiddleware = require("../middleware/authMiddleware"); // JWT middleware
+const candidateFacade = require("../patterns/CandidateFacade");
+const authMiddleware = require("../middleware/authMiddleware");
 const loggerMiddleware = require("../middleware/loggerMiddleware");
 const validateObjectId = require("../middleware/validateObjectId");
 
 /**
- * Routes with Middleware Pattern (Chain of Responsibility)
+ * Routes with Middleware Pattern (Chain of Responsibility) + Facade Pattern
  *
  * Each middleware has a single responsibility:
- * - loggerMiddleware: logs the request
+ * - loggerMiddleware: logs the request`
  * - authMiddleware: checks authentication
- * - validateObjectId: ensures ID format is valid
- * - controller (e.g., getCandidateById): handles business logic
+ * - validateObjectId: ensures ID format is valid (for routes with :id)
  *
- * The request flows step by step through this chain,
+ * The request flows step by step through this chain
  * and any middleware can stop the chain if its condition fails.
+ * 
+ * After the middleware chain, the request is handled by:
+ * - facade method (e.g., candidateFacade.getById): delegates to the controller
+ *   and provides a single unified entry point to the candidate subsystem.
+ *
  */
 
-
 // Admin-only routes
-router.post("/", loggerMiddleware, authMiddleware, addCandidate);        // Add new candidate
-router.get("/", loggerMiddleware, authMiddleware, getAllCandidates); // Get all candidates
-// Request pipeline: logger -> auth -> validateObjectId -> controller
-router.get("/:id", loggerMiddleware, authMiddleware, validateObjectId, getCandidateById); // Get all candidates
-// Request pipeline: logger -> auth -> validateObjectId -> controller
-router.put("/:id", loggerMiddleware, authMiddleware, validateObjectId, updateCandidate); // Update candidate 
-// Request pipeline: logger -> auth -> validateObjectId -> controller
-router.delete("/:id", loggerMiddleware, authMiddleware, validateObjectId, deleteCandidate); // Delete candidate
+// Request pipeline: logger -> auth -> facade method
+router.post("/", loggerMiddleware, authMiddleware, (req, res) => candidateFacade.add(req, res)); // Add new candidate
+
+// Request pipeline: logger -> auth -> facade method
+router.get("/", loggerMiddleware, authMiddleware, (req, res) => candidateFacade.getAll(req, res)); // Get all candidates
+
+// Request pipeline: logger -> auth -> validateObjectId -> facade method
+router.get("/:id", loggerMiddleware, authMiddleware, validateObjectId, (req, res) => candidateFacade.getById(req, res)); // Get candidate by ID
+
+// Request pipeline: logger -> auth -> validateObjectId -> facade method
+router.put("/:id", loggerMiddleware, authMiddleware, validateObjectId, (req, res) => candidateFacade.update(req, res)); // Update candidate
+
+// Request pipeline: logger -> auth -> validateObjectId -> facade method
+router.delete("/:id", loggerMiddleware, authMiddleware, validateObjectId, (req, res) => candidateFacade.remove(req, res)); // Delete candidate
 
 module.exports = router;

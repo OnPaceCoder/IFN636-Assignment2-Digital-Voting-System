@@ -1,13 +1,21 @@
 const express = require("express");
 const router = express.Router();
-const { viewResults, exportResults, getVoteStats, getAllElectionResults } = require("../controllers/resultController");
 const loggerMiddleware = require("../middleware/loggerMiddleware");
 const authMiddleware = require("../middleware/authMiddleware");
+const resultFacade = require("../patterns/ResultFacade");
 
+// Protected route: only authenticated users can view results
 
-router.get("/", loggerMiddleware, authMiddleware, viewResults); // View results
-router.post("/export", loggerMiddleware, authMiddleware, exportResults); // Export results
-router.get("/stats", loggerMiddleware, authMiddleware, getVoteStats); // Get voting statistics
-router.get("/history", loggerMiddleware, authMiddleware, getAllElectionResults); // Get all election results
+// Request pipeline: logger -> auth -> facade method
+router.get("/", loggerMiddleware, authMiddleware, (req, res) => resultFacade.getResults(req, res)); // View results
+
+// Request pipeline: logger -> auth -> facade method
+router.post("/export", loggerMiddleware, authMiddleware, (req, res) => resultFacade.export(req, res)); // Export results
+
+// Request pipeline: logger -> auth -> facade method
+router.get("/stats", loggerMiddleware, authMiddleware, (req, res) => resultFacade.stats(req, res)); // Get voting statistics
+
+// Request pipeline: logger -> auth -> facade method
+router.get("/history", loggerMiddleware, authMiddleware, (req, res) => resultFacade.history(req, res)); // Get all election results
 
 module.exports = router;
