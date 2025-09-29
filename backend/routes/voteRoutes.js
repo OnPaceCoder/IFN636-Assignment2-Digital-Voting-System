@@ -1,13 +1,25 @@
 const express = require("express");
 const router = express.Router();
-const { castVote, viewMyVote, updateVote, withdrawVote, getVoteStatus } = require("../controllers/voteController");
+const voteFacade = require("../patterns/VoteFacade");
 const authMiddleware = require("../middleware/authMiddleware");
 const loggerMiddleware = require("../middleware/loggerMiddleware");
 
 // Protected route: only authenticated users can cast votes
-router.post("/", loggerMiddleware, authMiddleware, castVote);
-router.get("/status", loggerMiddleware, authMiddleware, getVoteStatus)
-router.get("/", loggerMiddleware, authMiddleware, viewMyVote); // View my vote
-router.patch("/", loggerMiddleware, authMiddleware, updateVote); // Change my vote
-router.delete("/", loggerMiddleware, authMiddleware, withdrawVote); // Withdraw my vote
+
+// Request pipeline: logger -> auth -> facade method
+router.post("/", loggerMiddleware, authMiddleware, (req, res) => voteFacade.cast(req, res)); // Cast a vote
+
+// Request pipeline: logger -> auth -> facade method
+router.get("/status", loggerMiddleware, authMiddleware, (req, res) => voteFacade.status(req, res)); // Get vote status
+
+// Request pipeline: logger -> auth -> facade method
+router.get("/", loggerMiddleware, authMiddleware, (req, res) => voteFacade.view(req, res)); // View my vote
+
+// Request pipeline: logger -> auth -> facade method
+router.patch("/", loggerMiddleware, authMiddleware, (req, res) => voteFacade.update(req, res));  // Update my vote
+
+// Request pipeline: logger -> auth -> facade method
+router.delete("/", loggerMiddleware, authMiddleware, (req, res) => voteFacade.withdraw(req, res)); // Withdraw my vote
+
 module.exports = router;
+

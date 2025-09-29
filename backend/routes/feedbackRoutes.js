@@ -1,18 +1,35 @@
 const express = require("express");
 const router = express.Router();
-const { addFeedback, getAllFeedback, deleteFeedback, getFeedbackByUser } = require("../controllers/feedbackController");
+const feedbackFacade = require("../patterns/FeedbackFacade");
 const authMiddleware = require("../middleware/authMiddleware");
 const loggerMiddleware = require("../middleware/loggerMiddleware");
 
+/**
+ * Routes with Middleware Pattern (Chain of Responsibility) + Facade Pattern
+ *
+ * Each middleware has a single responsibility:
+ * - loggerMiddleware: logs the request
+ * - authMiddleware: checks authentication
+ *
+ * After the middleware chain, the request is handled by:
+ * - facade method: delegates to the controller
+ *   and provides a single unified entry point to the feedback subsystem.
+ */
+
 // User can submit feedback
-router.post("/", loggerMiddleware, authMiddleware, addFeedback);
+// Request pipeline: logger -> auth -> facade method
+router.post("/", loggerMiddleware, authMiddleware, (req, res) => feedbackFacade.add(req, res));
 
 // Admin can view all feedback
-router.get("/", loggerMiddleware, authMiddleware, getAllFeedback);
+// Request pipeline: logger -> auth -> facade method
+router.get("/", loggerMiddleware, authMiddleware, (req, res) => feedbackFacade.getAll(req, res));
 
 // Admin can delete feedback by ID
-router.delete("/:id", loggerMiddleware, authMiddleware, deleteFeedback);
+// Request pipeline: logger -> auth -> facade method
+router.delete("/:id", loggerMiddleware, authMiddleware, (req, res) => feedbackFacade.remove(req, res));
 
 // User can view their own feedback 
-router.get("/my/:userId", loggerMiddleware, authMiddleware, getFeedbackByUser);
+// Request pipeline: logger -> auth -> facade method
+router.get("/my/:userId", loggerMiddleware, authMiddleware, (req, res) => feedbackFacade.getByUser(req, res));
+
 module.exports = router;
