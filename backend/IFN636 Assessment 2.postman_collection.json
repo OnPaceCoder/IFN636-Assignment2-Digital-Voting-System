@@ -1,0 +1,2301 @@
+{
+  "info": {
+    "_postman_id": "731a7dbd-cde3-4311-9e3c-39282ab06694",
+    "name": "IFN636 Assessment 2",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "30511201"
+  },
+  "item": [
+    {
+      "name": "Auth APIs",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"admin2@gmail.com\",\n    \"password\": \"admin2123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5001/api/auth/login",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "auth", "login"]
+            }
+          },
+          "response": [
+            {
+              "name": "Login",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"email\": \"admin2@gmail.com\",\n    \"password\": \"admin2123\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5001/api/auth/login",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5001",
+                  "path": ["api", "auth", "login"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "386"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"182-EbJ635htDZ9sIjSWuB9ONZsvl3g\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 30 Sep 2025 13:45:18 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Login successful\",\n    \"user\": {\n        \"id\": \"68cec650fa3d20f370fa4a69\",\n        \"name\": \"admin\",\n        \"email\": \"admin2@gmail.com\",\n        \"role\": \"Admin\"\n    },\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Y2VjNjUwZmEzZDIwZjM3MGZhNGE2OSIsIm5hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW4yQGdtYWlsLmNvbSIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc1OTIzOTkxOCwiZXhwIjoxNzU5MjQzNTE4fQ.WyONgWkyPFaM5HfD7Ik3HLjhP0f82I-5caSXB9ewZsM\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\":\"admin5\",\n  \"email\": \"admin5@gmail.com\",\n  \"password\": \"admin3123\",\n  \"type\": \"Admin\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5001/api/auth/register",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "auth", "register"]
+            }
+          },
+          "response": [
+            {
+              "name": "Register",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\":\"admin5\",\n  \"email\": \"admin5@gmail.com\",\n  \"password\": \"admin3123\",\n  \"type\": \"Admin\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5001/api/auth/register",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5001",
+                  "path": ["api", "auth", "register"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "316"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"13c-GkirY7cDZE3XKmTK9Zj53LxDzIc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 30 Sep 2025 13:44:32 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"User registered successfully\",\n    \"role\": \"Admin\",\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZGJkZWMwZTdkNWIyYjk0ZThkNjA5MCIsIm5hbWUiOiJhZG1pbjUiLCJlbWFpbCI6ImFkbWluNUBnbWFpbC5jb20iLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NTkyMzk4NzIsImV4cCI6MTc1OTI0MzQ3Mn0.3Ygv5J3Nhempd_jr2bzrFPsEWmkm5wQWiokA6JxYL_E\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Profile",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Y2VjNjUwZmEzZDIwZjM3MGZhNGE2OSIsIm5hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW4yQGdtYWlsLmNvbSIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc1OTIzOTkxOCwiZXhwIjoxNzU5MjQzNTE4fQ.WyONgWkyPFaM5HfD7Ik3HLjhP0f82I-5caSXB9ewZsM",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5001/api/auth/profile",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "auth", "profile"]
+            }
+          },
+          "response": [
+            {
+              "name": "Get Profile",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5001/api/auth/profile",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5001",
+                  "path": ["api", "auth", "profile"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "109"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"6d-FNSGq88vyTfO5WFjLJNUm/lg6f0\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 30 Sep 2025 13:46:29 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"name\": \"admin\",\n    \"email\": \"admin2@gmail.com\",\n    \"role\": \"Admin\",\n    \"university\": \"Queensland University of Technology\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Candidates",
+      "item": [
+        {
+          "name": "Update Candidate",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Y2VjNjUwZmEzZDIwZjM3MGZhNGE2OSIsIm5hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW4yQGdtYWlsLmNvbSIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc1OTIzOTkxOCwiZXhwIjoxNzU5MjQzNTE4fQ.WyONgWkyPFaM5HfD7Ik3HLjhP0f82I-5caSXB9ewZsM",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Markus\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5001/api/candidate/68dbdfa5e7d5b2b94e8d609f",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "candidate", "68dbdfa5e7d5b2b94e8d609f"]
+            }
+          },
+          "response": [
+            {
+              "name": "Update Candidate",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Markus\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5001/api/candidate/68dbdfa5e7d5b2b94e8d609f",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5001",
+                  "path": ["api", "candidate", "68dbdfa5e7d5b2b94e8d609f"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "289"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"121-l5xc5GBilqG+fmywjNnA/Dqhlec\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 30 Sep 2025 13:52:41 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Candidate updated successfully\",\n    \"candidate\": {\n        \"id\": \"68dbdfa5e7d5b2b94e8d609f\",\n        \"name\": \"Markus\",\n        \"position\": \"President\",\n        \"manifesto\": \"Free Education for all students\",\n        \"photoUrl\": \"https://example.com/mark.jpg\",\n        \"status\": \"active\",\n        \"voteCount\": 0,\n        \"electionId\": \"68cec66efa3d20f370fa4a6c\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete Candidate",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Y2VjNjUwZmEzZDIwZjM3MGZhNGE2OSIsIm5hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW4yQGdtYWlsLmNvbSIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc1OTIzOTkxOCwiZXhwIjoxNzU5MjQzNTE4fQ.WyONgWkyPFaM5HfD7Ik3HLjhP0f82I-5caSXB9ewZsM",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5001/api/candidate/68ce9e928aa08cd3e03649d3",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "candidate", "68ce9e928aa08cd3e03649d3"]
+            }
+          },
+          "response": [
+            {
+              "name": "Delete Candidate",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5001/api/candidate/68ce9e928aa08cd3e03649d3",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5001",
+                  "path": ["api", "candidate", "68ce9e928aa08cd3e03649d3"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "117"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"75-uCwrGNC2us70b/6CfZAKELUDpyM\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 30 Sep 2025 13:54:41 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Candidate deleted successfully\",\n    \"result\": {\n        \"id\": \"68ce9e928aa08cd3e03649d3\",\n        \"message\": \"Candidate deleted\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Add Candidates",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YmU1NDc1MGQ1NmJlN2NlNTNjZjc3ZCIsImlhdCI6MTc1NzMwNDAxOSwiZXhwIjoxNzU5ODk2MDE5fQ.2nL4Xs4Ohfzkdqbk9EqhErBL9AWUw1fOvMwtRTiczHY",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Mark\",\n  \"position\": \"President\",\n  \"manifesto\": \"Free Education for all students\",\n  \"photoUrl\": \"https://example.com/mark.jpg\",\n  \"electionId\": \"68cec66efa3d20f370fa4a6c\"\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5001/api/candidate",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "candidate"]
+            }
+          },
+          "response": [
+            {
+              "name": "Add Candidates",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Mark\",\n  \"position\": \"President\",\n  \"manifesto\": \"Free Education for all students\",\n  \"photoUrl\": \"https://example.com/mark.jpg\",\n  \"electionId\": \"68cec66efa3d20f370fa4a6c\"\n}\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5001/api/candidate",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5001",
+                  "path": ["api", "candidate"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "566"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"236-Cc/BSx7BCJct21CmcfpIfzl2+cc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 30 Sep 2025 13:48:22 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Candidate added successfully\",\n    \"candidate\": {\n        \"id\": 1759240101800,\n        \"name\": \"Mark\",\n        \"position\": \"President\",\n        \"manifesto\": \"Free Education for all students\",\n        \"photoUrl\": \"https://example.com/mark.jpg\",\n        \"status\": \"active\",\n        \"voteCount\": 0,\n        \"election\": {\n            \"id\": \"68cec66efa3d20f370fa4a6c\",\n            \"title\": \"Student Council 2024\",\n            \"description\": \"General elections for 2024 council\",\n            \"isOpen\": true,\n            \"candidates\": [\n                {\n                    \"id\": 1759240101800,\n                    \"name\": \"Mark\",\n                    \"position\": \"President\",\n                    \"manifesto\": \"Free Education for all students\",\n                    \"photoUrl\": \"https://example.com/mark.jpg\",\n                    \"status\": \"active\",\n                    \"voteCount\": 0\n                }\n            ]\n        }\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Candidates",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YmU1NDc1MGQ1NmJlN2NlNTNjZjc3ZCIsImlhdCI6MTc1NzMwNDAxOSwiZXhwIjoxNzU5ODk2MDE5fQ.2nL4Xs4Ohfzkdqbk9EqhErBL9AWUw1fOvMwtRTiczHY",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5001/api/candidate",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "candidate"]
+            }
+          },
+          "response": [
+            {
+              "name": "Get Candidates",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5001/api/candidate",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5001",
+                  "path": ["api", "candidate"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "3104"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"c20-OYGXgVgPY2tbTo2VKyqwRszsXnI\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 30 Sep 2025 13:47:00 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"items\": [\n        {\n            \"_id\": \"68d9dc0f910a956a6ffe0608\",\n            \"name\": \"Pragati \",\n            \"position\": \"Student \",\n            \"manifesto\": \"No exam \",\n            \"photoUrl\": \"\",\n            \"status\": \"active\",\n            \"voteCount\": 0,\n            \"electionId\": \"68cbfd56bfd7f34cb8c38d6d\",\n            \"electionTitle\": \"Student Council 2025\",\n            \"createdAt\": \"2025-09-29T01:08:31.223Z\"\n        },\n        {\n            \"_id\": \"68cec6b1fa3d20f370fa4a77\",\n            \"name\": \"Thomas\",\n            \"position\": \"President\",\n            \"manifesto\": \"Reduce fees for international students and More Scholarships \",\n            \"photoUrl\": \"https://example.com/alice.jpg\",\n            \"status\": \"active\",\n            \"voteCount\": 11,\n            \"electionId\": \"68cbfd56bfd7f34cb8c38d6d\",\n            \"electionTitle\": \"Student Council 2025\",\n            \"createdAt\": \"2025-09-20T15:22:25.885Z\"\n        },\n        {\n            \"_id\": \"68cec6a1fa3d20f370fa4a73\",\n            \"name\": \"Martin\",\n            \"position\": \"President\",\n            \"manifesto\": \"Free food during exams\",\n            \"photoUrl\": \"https://example.com/alice.jpg\",\n            \"status\": \"active\",\n            \"voteCount\": 1,\n            \"electionId\": \"68cec66efa3d20f370fa4a6c\",\n            \"electionTitle\": \"Student Council 2024\",\n            \"createdAt\": \"2025-09-20T15:22:09.079Z\"\n        },\n        {\n            \"_id\": \"68cec692fa3d20f370fa4a6f\",\n            \"name\": \"Martin\",\n            \"position\": \"President\",\n            \"manifesto\": \"Library access during Weekends\",\n            \"photoUrl\": \"https://example.com/alice.jpg\",\n            \"status\": \"active\",\n            \"voteCount\": 1,\n            \"electionId\": \"68cec66efa3d20f370fa4a6c\",\n            \"electionTitle\": \"Student Council 2024\",\n            \"createdAt\": \"2025-09-20T15:21:54.664Z\"\n        },\n        {\n            \"_id\": \"68ce9eb28aa08cd3e03649d7\",\n            \"name\": \"Daniel\",\n            \"position\": \"President\",\n            \"manifesto\": \"Library access during Vacations\",\n            \"photoUrl\": \"https://example.com/alice.jpg\",\n            \"status\": \"active\",\n            \"voteCount\": 0,\n            \"electionId\": \"68cbfd56bfd7f34cb8c38d6d\",\n            \"electionTitle\": \"Student Council 2025\",\n            \"createdAt\": \"2025-09-20T12:31:46.931Z\"\n        },\n        {\n            \"_id\": \"68ce9e928aa08cd3e03649d3\",\n            \"name\": \"Yash\",\n            \"position\": \"President\",\n            \"manifesto\": \"More Funds and Grants for Research\",\n            \"photoUrl\": \"https://example.com/alice.jpg\",\n            \"status\": \"active\",\n            \"voteCount\": 1,\n            \"electionId\": \"68cbfd56bfd7f34cb8c38d6d\",\n            \"electionTitle\": \"Student Council 2025\",\n            \"createdAt\": \"2025-09-20T12:31:14.761Z\"\n        },\n        {\n            \"_id\": \"68ce9e828aa08cd3e03649cf\",\n            \"name\": \"Parth\",\n            \"position\": \"President\",\n            \"manifesto\": \"More Scholarships\",\n            \"photoUrl\": \"https://example.com/alice.jpg\",\n            \"status\": \"active\",\n            \"voteCount\": 1,\n            \"electionId\": \"68cbfd56bfd7f34cb8c38d6d\",\n            \"electionTitle\": \"Student Council 2025\",\n            \"createdAt\": \"2025-09-20T12:30:58.455Z\"\n        },\n        {\n            \"_id\": \"68cc06a554a738158a09a10a\",\n            \"name\": \"Priyank\",\n            \"position\": \"President\",\n            \"manifesto\": \"Transparency and growth\",\n            \"photoUrl\": \"https://example.com/alice.jpg\",\n            \"status\": \"active\",\n            \"voteCount\": 2,\n            \"electionId\": \"68cbfd56bfd7f34cb8c38d6d\",\n            \"electionTitle\": \"Student Council 2025\",\n            \"createdAt\": \"2025-09-18T13:18:29.047Z\"\n        },\n        {\n            \"_id\": \"68cc01287829f41370b43a62\",\n            \"name\": \"Priyank\",\n            \"position\": \"President\",\n            \"manifesto\": \"Transparency and growth\",\n            \"photoUrl\": \"https://example.com/alice.jpg\",\n            \"status\": \"active\",\n            \"voteCount\": 1,\n            \"electionId\": \"68cbfd56bfd7f34cb8c38d6d\",\n            \"electionTitle\": \"Student Council 2025\",\n            \"createdAt\": \"2025-09-18T12:55:04.730Z\"\n        },\n        {\n            \"_id\": \"68cbffe3abb14a8ba0124aca\",\n            \"name\": \"Alice\",\n            \"position\": \"President\",\n            \"manifesto\": \"Transparency and growth\",\n            \"photoUrl\": \"https://example.com/alice.jpg\",\n            \"status\": \"active\",\n            \"voteCount\": 0,\n            \"electionId\": \"68cbfd56bfd7f34cb8c38d6d\",\n            \"electionTitle\": \"Student Council 2025\",\n            \"createdAt\": \"2025-09-18T12:49:39.146Z\"\n        }\n    ],\n    \"total\": 15,\n    \"page\": 1,\n    \"pages\": 2\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Candidates By ID",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YmU1NDc1MGQ1NmJlN2NlNTNjZjc3ZCIsImlhdCI6MTc1NzMwNDAxOSwiZXhwIjoxNzU5ODk2MDE5fQ.2nL4Xs4Ohfzkdqbk9EqhErBL9AWUw1fOvMwtRTiczHY",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5001/api/candidate/68cc06a554a738158a09a10a",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "candidate", "68cc06a554a738158a09a10a"]
+            }
+          },
+          "response": [
+            {
+              "name": "Get Candidates By ID",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5001/api/candidate/68cc06a554a738158a09a10a",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5001",
+                  "path": ["api", "candidate", "68cc06a554a738158a09a10a"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "156"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"9c-mU10sjk+aYfaExrxXc3kmbuRs5I\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 30 Sep 2025 13:47:31 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"68cc06a554a738158a09a10a\",\n    \"name\": \"Priyank\",\n    \"manifesto\": \"Transparency and growth\",\n    \"votes\": 2,\n    \"status\": \"active\",\n    \"electionId\": \"68cbfd56bfd7f34cb8c38d6d\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Feedback",
+      "item": [
+        {
+          "name": "Add Feedback",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Y2VjNjUwZmEzZDIwZjM3MGZhNGE2OSIsIm5hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW4yQGdtYWlsLmNvbSIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc1OTIzOTkxOCwiZXhwIjoxNzU5MjQzNTE4fQ.WyONgWkyPFaM5HfD7Ik3HLjhP0f82I-5caSXB9ewZsM",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"message\": \"Feedback\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5001/api/feedback",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "feedback"]
+            }
+          },
+          "response": [
+            {
+              "name": "Add Feedback",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"message\": \"Feedback\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5001/api/feedback",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5001",
+                  "path": ["api", "feedback"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "234"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"ea-+qx91t5il+cQko7iTPJpEZa3zoo\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 30 Sep 2025 13:57:54 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Feedback submitted successfully\",\n    \"feedback\": {\n        \"userId\": \"68cec650fa3d20f370fa4a69\",\n        \"message\": \"Feedback\",\n        \"_id\": \"68dbe1e1e7d5b2b94e8d60af\",\n        \"createdAt\": \"2025-09-30T13:57:53.943Z\",\n        \"updatedAt\": \"2025-09-30T13:57:53.943Z\",\n        \"__v\": 0\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get All Feedbacks",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Y2VjNjUwZmEzZDIwZjM3MGZhNGE2OSIsIm5hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW4yQGdtYWlsLmNvbSIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc1OTIzOTkxOCwiZXhwIjoxNzU5MjQzNTE4fQ.WyONgWkyPFaM5HfD7Ik3HLjhP0f82I-5caSXB9ewZsM",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\":\"admin\",\n  \"email\": \"admin2@gmail.com\",\n  \"password\": \"admin2123\",\n  \"type\": \"Admin\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5001/api/feedback",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "feedback"]
+            }
+          },
+          "response": [
+            {
+              "name": "Get Feedbacks",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\":\"admin\",\n  \"email\": \"admin2@gmail.com\",\n  \"password\": \"admin2123\",\n  \"type\": \"Admin\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5001/api/feedback",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5001",
+                  "path": ["api", "feedback"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "963"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"3c3-L1T186uYsN9nLIqvJi6VMQQ7X0Y\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 30 Sep 2025 13:58:10 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"count\": 4,\n    \"feedbacks\": [\n        {\n            \"_id\": \"68cf5fdc4dd99cdeaabced41\",\n            \"userId\": {\n                \"_id\": \"68ca904a94932e604ac1f1a6\",\n                \"name\": \"Ben2\",\n                \"email\": \"ben2@gmail.com\"\n            },\n            \"message\": \"Hello World\",\n            \"createdAt\": \"2025-09-21T02:15:56.451Z\",\n            \"updatedAt\": \"2025-09-21T02:15:56.451Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"68d6925c5a46c05ac67cb32d\",\n            \"userId\": {\n                \"_id\": \"68d2aade0a1639b68bdf799e\",\n                \"name\": \"PriyankV\",\n                \"email\": \"priyank-test@gmail.com\"\n            },\n            \"message\": \"good platform to use\",\n            \"createdAt\": \"2025-09-26T13:17:16.600Z\",\n            \"updatedAt\": \"2025-09-26T13:17:16.600Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"68d9d73472456c9a592fbc4a\",\n            \"userId\": {\n                \"_id\": \"68d2aade0a1639b68bdf799e\",\n                \"name\": \"PriyankV\",\n                \"email\": \"priyank-test@gmail.com\"\n            },\n            \"message\": \"Test\",\n            \"createdAt\": \"2025-09-29T00:47:48.234Z\",\n            \"updatedAt\": \"2025-09-29T00:47:48.234Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"68dbe1e1e7d5b2b94e8d60af\",\n            \"userId\": {\n                \"_id\": \"68cec650fa3d20f370fa4a69\",\n                \"name\": \"admin\",\n                \"email\": \"admin2@gmail.com\"\n            },\n            \"message\": \"Feedback\",\n            \"createdAt\": \"2025-09-30T13:57:53.943Z\",\n            \"updatedAt\": \"2025-09-30T13:57:53.943Z\",\n            \"__v\": 0\n        }\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Feedback By UserID",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Y2VjNjUwZmEzZDIwZjM3MGZhNGE2OSIsIm5hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW4yQGdtYWlsLmNvbSIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc1OTIzOTkxOCwiZXhwIjoxNzU5MjQzNTE4fQ.WyONgWkyPFaM5HfD7Ik3HLjhP0f82I-5caSXB9ewZsM",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\":\"admin\",\n  \"email\": \"admin2@gmail.com\",\n  \"password\": \"admin2123\",\n  \"type\": \"Admin\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5001/api/feedback/my/68cec650fa3d20f370fa4a69",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "feedback", "my", "68cec650fa3d20f370fa4a69"]
+            }
+          },
+          "response": [
+            {
+              "name": "Get Feedback By UserID",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\":\"admin\",\n  \"email\": \"admin2@gmail.com\",\n  \"password\": \"admin2123\",\n  \"type\": \"Admin\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5001/api/feedback/my/68cec650fa3d20f370fa4a69",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5001",
+                  "path": ["api", "feedback", "my", "68cec650fa3d20f370fa4a69"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "253"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"fd-O0YVNB+PdS+Sza8ugjrkCclGFdY\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 30 Sep 2025 14:00:28 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"count\": 1,\n    \"feedbacks\": [\n        {\n            \"_id\": \"68dbe1e1e7d5b2b94e8d60af\",\n            \"userId\": {\n                \"_id\": \"68cec650fa3d20f370fa4a69\",\n                \"name\": \"admin\",\n                \"email\": \"admin2@gmail.com\"\n            },\n            \"message\": \"Feedback\",\n            \"createdAt\": \"2025-09-30T13:57:53.943Z\",\n            \"updatedAt\": \"2025-09-30T13:57:53.943Z\",\n            \"__v\": 0\n        }\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete Feedback By ID",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Y2VjNjUwZmEzZDIwZjM3MGZhNGE2OSIsIm5hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW4yQGdtYWlsLmNvbSIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc1ODQyMTAyMCwiZXhwIjoxNzU4NDI0NjIwfQ.bz3DBDS8h0KiDlnLfzOhDOUdq2DPGKuG6ov0bgETx4g",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\":\"admin\",\n  \"email\": \"admin2@gmail.com\",\n  \"password\": \"admin2123\",\n  \"type\": \"Admin\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5001/api/feedback",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "feedback"]
+            }
+          },
+          "response": [
+            {
+              "name": "Delete Feedback By ID",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\":\"admin\",\n  \"email\": \"admin2@gmail.com\",\n  \"password\": \"admin2123\",\n  \"type\": \"Admin\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5001/api/feedback/68dbe1e1e7d5b2b94e8d60af",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5001",
+                  "path": ["api", "feedback", "68dbe1e1e7d5b2b94e8d60af"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "232"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"e8-ZgMANMM3W92BZpDpRGDnwYJA+n0\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 30 Sep 2025 14:01:16 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Feedback deleted successfully\",\n    \"feedback\": {\n        \"_id\": \"68dbe1e1e7d5b2b94e8d60af\",\n        \"userId\": \"68cec650fa3d20f370fa4a69\",\n        \"message\": \"Feedback\",\n        \"createdAt\": \"2025-09-30T13:57:53.943Z\",\n        \"updatedAt\": \"2025-09-30T13:57:53.943Z\",\n        \"__v\": 0\n    }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Election",
+      "item": [
+        {
+          "name": "Get All Elections",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Y2VjNjUwZmEzZDIwZjM3MGZhNGE2OSIsIm5hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW4yQGdtYWlsLmNvbSIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc1OTIzOTkxOCwiZXhwIjoxNzU5MjQzNTE4fQ.WyONgWkyPFaM5HfD7Ik3HLjhP0f82I-5caSXB9ewZsM",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5001/api/election",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "election"]
+            }
+          },
+          "response": [
+            {
+              "name": "Get All Elections",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5001/api/election",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5001",
+                  "path": ["api", "election"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "777"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"309-bkMglY+m9ECy4mHRn0jhpd6d/Rs\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 30 Sep 2025 13:55:11 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Elections retrieved successfully\",\n    \"count\": 2,\n    \"elections\": [\n        {\n            \"_id\": \"68cec66efa3d20f370fa4a6c\",\n            \"title\": \"Student Council 2024\",\n            \"description\": \"General elections for 2024 council\",\n            \"isOpen\": true,\n            \"candidates\": [\n                \"68cec692fa3d20f370fa4a6f\",\n                \"68cec6a1fa3d20f370fa4a73\",\n                \"68cec6b1fa3d20f370fa4a77\",\n                \"68dbdfa5e7d5b2b94e8d609f\"\n            ],\n            \"createdAt\": \"2025-09-20T15:21:18.701Z\",\n            \"updatedAt\": \"2025-09-30T13:48:22.049Z\",\n            \"__v\": 4\n        },\n        {\n            \"_id\": \"68cbfd56bfd7f34cb8c38d6d\",\n            \"title\": \"Student Council 2025\",\n            \"description\": \"General elections for 2025 council\",\n            \"isOpen\": true,\n            \"candidates\": [\n                \"68cc01287829f41370b43a62\",\n                \"68cc06a554a738158a09a10a\",\n                \"68ce9e828aa08cd3e03649cf\",\n                \"68ce9eb28aa08cd3e03649d7\",\n                \"68d9dc0f910a956a6ffe0608\"\n            ],\n            \"createdAt\": \"2025-09-18T12:38:46.715Z\",\n            \"updatedAt\": \"2025-09-30T13:54:41.318Z\",\n            \"__v\": 7\n        }\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update Election",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YmU1NDc1MGQ1NmJlN2NlNTNjZjc3ZCIsImlhdCI6MTc1NzMwNDAxOSwiZXhwIjoxNzU5ODk2MDE5fQ.2nL4Xs4Ohfzkdqbk9EqhErBL9AWUw1fOvMwtRTiczHY",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"electionId\": \"68cbfd56bfd7f34cb8c38d6d\",\n  \"isOpen\": true\n\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5001/api/election/toggle",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "election", "toggle"]
+            }
+          },
+          "response": [
+            {
+              "name": "Update Election",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"electionId\": \"68cbfd56bfd7f34cb8c38d6d\",\n  \"isOpen\": false\n\n}\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5001/api/election/toggle",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5001",
+                  "path": ["api", "election", "toggle"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "408"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"198-tJj2/Bow9LrpB3mgWhvdLsnbTtk\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 30 Sep 2025 13:55:31 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Election closed\",\n    \"election\": {\n        \"_id\": \"68cbfd56bfd7f34cb8c38d6d\",\n        \"title\": \"Student Council 2025\",\n        \"description\": \"General elections for 2025 council\",\n        \"isOpen\": false,\n        \"candidates\": [\n            \"68cc01287829f41370b43a62\",\n            \"68cc06a554a738158a09a10a\",\n            \"68ce9e828aa08cd3e03649cf\",\n            \"68ce9eb28aa08cd3e03649d7\",\n            \"68d9dc0f910a956a6ffe0608\"\n        ],\n        \"createdAt\": \"2025-09-18T12:38:46.715Z\",\n        \"updatedAt\": \"2025-09-30T13:55:31.339Z\",\n        \"__v\": 7\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Add Election",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Y2VjNjUwZmEzZDIwZjM3MGZhNGE2OSIsIm5hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW4yQGdtYWlsLmNvbSIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc1OTIzOTkxOCwiZXhwIjoxNzU5MjQzNTE4fQ.WyONgWkyPFaM5HfD7Ik3HLjhP0f82I-5caSXB9ewZsM",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"International Officers Elections 2025\",\n  \"description\": \"Student Union international officers election\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5001/api/election",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "election"]
+            }
+          },
+          "response": [
+            {
+              "name": "Add Election",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"International Officers Elections 2025\",\n  \"description\": \"Student Union international officers election\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5001/api/election",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5001",
+                  "path": ["api", "election"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "302"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"12e-HXdEVqJH0FiHGwpRqcX03XjDOyk\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 30 Sep 2025 13:56:40 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Election created\",\n    \"election\": {\n        \"title\": \"International Officers Elections 2025\",\n        \"description\": \"Student Union international officers election\",\n        \"isOpen\": true,\n        \"candidates\": [],\n        \"_id\": \"68dbe198e7d5b2b94e8d60ac\",\n        \"createdAt\": \"2025-09-30T13:56:40.691Z\",\n        \"updatedAt\": \"2025-09-30T13:56:40.691Z\",\n        \"__v\": 0\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete Election",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Y2VjNjUwZmEzZDIwZjM3MGZhNGE2OSIsIm5hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW4yQGdtYWlsLmNvbSIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc1OTIzOTkxOCwiZXhwIjoxNzU5MjQzNTE4fQ.WyONgWkyPFaM5HfD7Ik3HLjhP0f82I-5caSXB9ewZsM",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5001/api/election/68dbe198e7d5b2b94e8d60ac",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "election", "68dbe198e7d5b2b94e8d60ac"]
+            }
+          },
+          "response": [
+            {
+              "name": "Delete Election",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5001/api/election/68dbe198e7d5b2b94e8d60ac",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5001",
+                  "path": ["api", "election", "68dbe198e7d5b2b94e8d60ac"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "302"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"12e-9QxsK41OhXCAanT8V7vprfZN3pQ\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 30 Sep 2025 13:57:26 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Election deleted\",\n    \"election\": {\n        \"_id\": \"68dbe198e7d5b2b94e8d60ac\",\n        \"title\": \"International Officers Elections 2025\",\n        \"description\": \"Student Union international officers election\",\n        \"isOpen\": true,\n        \"candidates\": [],\n        \"createdAt\": \"2025-09-30T13:56:40.691Z\",\n        \"updatedAt\": \"2025-09-30T13:56:40.691Z\",\n        \"__v\": 0\n    }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Vote",
+      "item": [
+        {
+          "name": "Add-Vote-",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Y2VjNjUwZmEzZDIwZjM3MGZhNGE2OSIsIm5hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW4yQGdtYWlsLmNvbSIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc1OTIzOTkxOCwiZXhwIjoxNzU5MjQzNTE4fQ.WyONgWkyPFaM5HfD7Ik3HLjhP0f82I-5caSXB9ewZsM",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"candidateId\": \"68cc06a554a738158a09a10a\",\n    \"electionId\": \"68cbfd56bfd7f34cb8c38d6d\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5001/api/vote",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "vote"]
+            }
+          },
+          "response": [
+            {
+              "name": "Add-Vote-",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"candidateId\": \"68cc06a554a738158a09a10a\",\n    \"electionId\": \"68cbfd56bfd7f34cb8c38d6d\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5001/api/vote",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5001",
+                  "path": ["api", "vote"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "401"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"191-3iWObeW9RBR487qvy5wjlwi7Pe8\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 30 Sep 2025 14:03:48 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Vote successfully cast\",\n    \"candidate\": {\n        \"id\": \"68cc06a554a738158a09a10a\",\n        \"name\": \"Priyank\",\n        \"position\": \"President\",\n        \"manifesto\": \"Transparency and growth\",\n        \"photoUrl\": \"https://example.com/alice.jpg\",\n        \"status\": \"active\",\n        \"voteCount\": 3\n    },\n    \"vote\": {\n        \"voterId\": \"68cec650fa3d20f370fa4a69\",\n        \"candidateId\": \"68cc06a554a738158a09a10a\",\n        \"electionId\": \"68cbfd56bfd7f34cb8c38d6d\",\n        \"timestamp\": \"2025-09-30T14:03:48.333Z\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "View myVote",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Y2VjNjUwZmEzZDIwZjM3MGZhNGE2OSIsIm5hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW4yQGdtYWlsLmNvbSIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc1OTIzOTkxOCwiZXhwIjoxNzU5MjQzNTE4fQ.WyONgWkyPFaM5HfD7Ik3HLjhP0f82I-5caSXB9ewZsM",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5001/api/vote",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "vote"]
+            }
+          },
+          "response": [
+            {
+              "name": "View myVote",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5001/api/vote",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5001",
+                  "path": ["api", "vote"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "1189"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"4a5-nmeicLM1cPYVlazs/XKAerUKIwo\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 30 Sep 2025 14:04:15 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"My votes retrieved successfully\",\n    \"votes\": [\n        {\n            \"vote\": {\n                \"voterId\": \"68cec650fa3d20f370fa4a69\",\n                \"candidateId\": \"68cc06a554a738158a09a10a\",\n                \"electionId\": \"68cbfd56bfd7f34cb8c38d6d\",\n                \"timestamp\": \"2025-09-30T14:04:15.325Z\"\n            },\n            \"candidate\": {\n                \"id\": \"68cc06a554a738158a09a10a\",\n                \"name\": \"Priyank\",\n                \"position\": \"President\",\n                \"manifesto\": \"Transparency and growth\",\n                \"photoUrl\": \"https://example.com/alice.jpg\",\n                \"status\": \"active\",\n                \"voteCount\": 3,\n                \"electionId\": \"68cbfd56bfd7f34cb8c38d6d\"\n            },\n            \"election\": {\n                \"id\": \"68cbfd56bfd7f34cb8c38d6d\",\n                \"title\": \"Student Council 2025\",\n                \"description\": \"General elections for 2025 council\",\n                \"isOpen\": true\n            }\n        },\n        {\n            \"vote\": {\n                \"voterId\": \"68cec650fa3d20f370fa4a69\",\n                \"candidateId\": \"68cec6b1fa3d20f370fa4a77\",\n                \"electionId\": \"68cec66efa3d20f370fa4a6c\",\n                \"timestamp\": \"2025-09-30T14:04:15.325Z\"\n            },\n            \"candidate\": {\n                \"id\": \"68cec6b1fa3d20f370fa4a77\",\n                \"name\": \"Thomas\",\n                \"position\": \"President\",\n                \"manifesto\": \"Reduce fees for international students and More Scholarships \",\n                \"photoUrl\": \"https://example.com/alice.jpg\",\n                \"status\": \"active\",\n                \"voteCount\": 11,\n                \"electionId\": \"68cbfd56bfd7f34cb8c38d6d\"\n            },\n            \"election\": {\n                \"id\": \"68cec66efa3d20f370fa4a6c\",\n                \"title\": \"Student Council 2024\",\n                \"description\": \"General elections for 2024 council\",\n                \"isOpen\": true\n            }\n        }\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update myVote",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Y2VjNjUwZmEzZDIwZjM3MGZhNGE2OSIsIm5hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW4yQGdtYWlsLmNvbSIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc1OTIzOTkxOCwiZXhwIjoxNzU5MjQzNTE4fQ.WyONgWkyPFaM5HfD7Ik3HLjhP0f82I-5caSXB9ewZsM",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"newCandidateId\": \"68ce9e828aa08cd3e03649cf\",\n    \"electionId\": \"68cbfd56bfd7f34cb8c38d6d\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5001/api/vote",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "vote"]
+            }
+          },
+          "response": [
+            {
+              "name": "Update myVote",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"newCandidateId\": \"68ce9e828aa08cd3e03649cf\",\n    \"electionId\": \"68cbfd56bfd7f34cb8c38d6d\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5001/api/vote",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5001",
+                  "path": ["api", "vote"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "681"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2a9-QOUnW18CWTWlOGzPBdTVhB+kAgg\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 30 Sep 2025 14:05:27 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Vote successfully updated\",\n    \"oldCandidate\": {\n        \"id\": \"68cc06a554a738158a09a10a\",\n        \"name\": \"Priyank\",\n        \"position\": \"President\",\n        \"manifesto\": \"Transparency and growth\",\n        \"photoUrl\": \"https://example.com/alice.jpg\",\n        \"status\": \"active\",\n        \"voteCount\": 2,\n        \"electionId\": \"68cbfd56bfd7f34cb8c38d6d\"\n    },\n    \"newCandidate\": {\n        \"id\": \"68ce9e828aa08cd3e03649cf\",\n        \"name\": \"Parth\",\n        \"position\": \"President\",\n        \"manifesto\": \"More Scholarships\",\n        \"photoUrl\": \"https://example.com/alice.jpg\",\n        \"status\": \"active\",\n        \"voteCount\": 2,\n        \"electionId\": \"68cbfd56bfd7f34cb8c38d6d\"\n    },\n    \"vote\": {\n        \"voterId\": \"68cec650fa3d20f370fa4a69\",\n        \"candidateId\": \"68ce9e828aa08cd3e03649cf\",\n        \"electionId\": \"68cbfd56bfd7f34cb8c38d6d\",\n        \"timestamp\": \"2025-09-30T14:05:27.044Z\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete myVote",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Y2VjNjUwZmEzZDIwZjM3MGZhNGE2OSIsIm5hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW4yQGdtYWlsLmNvbSIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc1OTIzOTkxOCwiZXhwIjoxNzU5MjQzNTE4fQ.WyONgWkyPFaM5HfD7Ik3HLjhP0f82I-5caSXB9ewZsM",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\n    \"electionId\": \"68cec66efa3d20f370fa4a6c\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5001/api/vote",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "vote"]
+            }
+          },
+          "response": [
+            {
+              "name": "Delete myVote",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n\n    \"electionId\": \"68cec66efa3d20f370fa4a6c\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5001/api/vote",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5001",
+                  "path": ["api", "vote"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "318"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"13e-nQ1WDQbUqHS+ciC/FdjAqrGVktk\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 30 Sep 2025 14:05:53 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Vote successfully withdrawn\",\n    \"candidate\": {\n        \"id\": \"68cec6b1fa3d20f370fa4a77\",\n        \"name\": \"Thomas\",\n        \"position\": \"President\",\n        \"manifesto\": \"Reduce fees for international students and More Scholarships \",\n        \"photoUrl\": \"https://example.com/alice.jpg\",\n        \"status\": \"active\",\n        \"voteCount\": 10,\n        \"electionId\": \"68cbfd56bfd7f34cb8c38d6d\"\n    }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Results",
+      "item": [
+        {
+          "name": "GET Stats of Election",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YmU1NDc1MGQ1NmJlN2NlNTNjZjc3ZCIsImlhdCI6MTc1NzMwNDAxOSwiZXhwIjoxNzU5ODk2MDE5fQ.2nL4Xs4Ohfzkdqbk9EqhErBL9AWUw1fOvMwtRTiczHY",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5001/api/result/stats?electionId=68cbfd56bfd7f34cb8c38d6d",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "result", "stats"],
+              "query": [
+                {
+                  "key": "electionId",
+                  "value": "68cbfd56bfd7f34cb8c38d6d"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "GET Stats of Election",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5001/api/result/stats?electionId=68cbfd56bfd7f34cb8c38d6d",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5001",
+                  "path": ["api", "result", "stats"],
+                  "query": [
+                    {
+                      "key": "electionId",
+                      "value": "68cbfd56bfd7f34cb8c38d6d"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "108"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"6c-B3U3zrukZBzb4L2RDv9prB3Tudc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 30 Sep 2025 14:01:39 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"electionId\": \"68cbfd56bfd7f34cb8c38d6d\",\n    \"eligibleVoters\": 29,\n    \"totalVotesCast\": 5,\n    \"turnoutPercentage\": \"17.24\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Export result",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YmU1NDc1MGQ1NmJlN2NlNTNjZjc3ZCIsImlhdCI6MTc1NzMwNDAxOSwiZXhwIjoxNzU5ODk2MDE5fQ.2nL4Xs4Ohfzkdqbk9EqhErBL9AWUw1fOvMwtRTiczHY",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"electionId\": \"68cbfd56bfd7f34cb8c38d6d\"\n \n\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5001/api/result/export?electionId=68cec66efa3d20f370fa4a6c&type=json",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "result", "export"],
+              "query": [
+                {
+                  "key": "electionId",
+                  "value": "68cec66efa3d20f370fa4a6c"
+                },
+                {
+                  "key": "method",
+                  "value": "name",
+                  "disabled": true
+                },
+                {
+                  "key": "type",
+                  "value": "json"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Export result",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"electionId\": \"68cbfd56bfd7f34cb8c38d6d\"\n \n\n}\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5001/api/result/export?electionId=68cec66efa3d20f370fa4a6c&type=json",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5001",
+                  "path": ["api", "result", "export"],
+                  "query": [
+                    {
+                      "key": "electionId",
+                      "value": "68cec66efa3d20f370fa4a6c"
+                    },
+                    {
+                      "key": "method",
+                      "value": "name",
+                      "disabled": true
+                    },
+                    {
+                      "key": "type",
+                      "value": "json"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "1021"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"3fd-Lat8mmNpq9OYD2F84puXAAyy2MU\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 30 Sep 2025 14:02:00 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"electionId\": \"68cec66efa3d20f370fa4a6c\",\n    \"method\": \"vote\",\n    \"results\": [\n        {\n            \"_id\": \"68cec692fa3d20f370fa4a6f\",\n            \"name\": \"Martin\",\n            \"position\": \"President\",\n            \"manifesto\": \"Library access during Weekends\",\n            \"photoUrl\": \"https://example.com/alice.jpg\",\n            \"status\": \"active\",\n            \"voteCount\": 1,\n            \"electionId\": \"68cec66efa3d20f370fa4a6c\",\n            \"createdAt\": \"2025-09-20T15:21:54.664Z\",\n            \"updatedAt\": \"2025-09-26T12:00:39.343Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"68cec6a1fa3d20f370fa4a73\",\n            \"name\": \"Martin\",\n            \"position\": \"President\",\n            \"manifesto\": \"Free food during exams\",\n            \"photoUrl\": \"https://example.com/alice.jpg\",\n            \"status\": \"active\",\n            \"voteCount\": 1,\n            \"electionId\": \"68cec66efa3d20f370fa4a6c\",\n            \"createdAt\": \"2025-09-20T15:22:09.079Z\",\n            \"updatedAt\": \"2025-09-29T02:41:42.171Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"68dbdfa5e7d5b2b94e8d609f\",\n            \"name\": \"Markus\",\n            \"position\": \"President\",\n            \"manifesto\": \"Free Education for all students\",\n            \"photoUrl\": \"https://example.com/mark.jpg\",\n            \"status\": \"active\",\n            \"voteCount\": 0,\n            \"electionId\": \"68cec66efa3d20f370fa4a6c\",\n            \"createdAt\": \"2025-09-30T13:48:21.801Z\",\n            \"updatedAt\": \"2025-09-30T13:52:41.323Z\",\n            \"__v\": 0\n        }\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Results",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YmU1NDc1MGQ1NmJlN2NlNTNjZjc3ZCIsImlhdCI6MTc1NzMwNDAxOSwiZXhwIjoxNzU5ODk2MDE5fQ.2nL4Xs4Ohfzkdqbk9EqhErBL9AWUw1fOvMwtRTiczHY",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"electionId\": \"68cbfd56bfd7f34cb8c38d6d\"\n \n\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5001/api/result?electionId=68cec66efa3d20f370fa4a6c",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "result"],
+              "query": [
+                {
+                  "key": "electionId",
+                  "value": "68cec66efa3d20f370fa4a6c"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Get Results",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"electionId\": \"68cbfd56bfd7f34cb8c38d6d\"\n \n\n}\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5001/api/result?electionId=68cec66efa3d20f370fa4a6c",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5001",
+                  "path": ["api", "result"],
+                  "query": [
+                    {
+                      "key": "electionId",
+                      "value": "68cec66efa3d20f370fa4a6c"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "1021"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"3fd-Lat8mmNpq9OYD2F84puXAAyy2MU\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 30 Sep 2025 14:02:10 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"electionId\": \"68cec66efa3d20f370fa4a6c\",\n    \"method\": \"vote\",\n    \"results\": [\n        {\n            \"_id\": \"68cec692fa3d20f370fa4a6f\",\n            \"name\": \"Martin\",\n            \"position\": \"President\",\n            \"manifesto\": \"Library access during Weekends\",\n            \"photoUrl\": \"https://example.com/alice.jpg\",\n            \"status\": \"active\",\n            \"voteCount\": 1,\n            \"electionId\": \"68cec66efa3d20f370fa4a6c\",\n            \"createdAt\": \"2025-09-20T15:21:54.664Z\",\n            \"updatedAt\": \"2025-09-26T12:00:39.343Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"68cec6a1fa3d20f370fa4a73\",\n            \"name\": \"Martin\",\n            \"position\": \"President\",\n            \"manifesto\": \"Free food during exams\",\n            \"photoUrl\": \"https://example.com/alice.jpg\",\n            \"status\": \"active\",\n            \"voteCount\": 1,\n            \"electionId\": \"68cec66efa3d20f370fa4a6c\",\n            \"createdAt\": \"2025-09-20T15:22:09.079Z\",\n            \"updatedAt\": \"2025-09-29T02:41:42.171Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"68dbdfa5e7d5b2b94e8d609f\",\n            \"name\": \"Markus\",\n            \"position\": \"President\",\n            \"manifesto\": \"Free Education for all students\",\n            \"photoUrl\": \"https://example.com/mark.jpg\",\n            \"status\": \"active\",\n            \"voteCount\": 0,\n            \"electionId\": \"68cec66efa3d20f370fa4a6c\",\n            \"createdAt\": \"2025-09-30T13:48:21.801Z\",\n            \"updatedAt\": \"2025-09-30T13:52:41.323Z\",\n            \"__v\": 0\n        }\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get election archive data",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [""],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YmU1NDc1MGQ1NmJlN2NlNTNjZjc3ZCIsImlhdCI6MTc1NzMwNDAxOSwiZXhwIjoxNzU5ODk2MDE5fQ.2nL4Xs4Ohfzkdqbk9EqhErBL9AWUw1fOvMwtRTiczHY",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5001/api/result/history",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "result", "history"]
+            }
+          },
+          "response": [
+            {
+              "name": "Get election archive data",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5001/api/result/history",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5001",
+                  "path": ["api", "result", "history"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "410"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"19a-lCoT69Zqjo9jcO8pX4YN5YIUsFc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 30 Sep 2025 14:02:24 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"results\": [\n        {\n            \"electionId\": \"68cbfd56bfd7f34cb8c38d6d\",\n            \"description\": \"General elections for 2025 council\",\n            \"winner\": {\n                \"candidateId\": \"68cec6b1fa3d20f370fa4a77\",\n                \"name\": \"Thomas\",\n                \"voteCount\": 11,\n                \"position\": \"President\"\n            }\n        },\n        {\n            \"electionId\": \"68cec66efa3d20f370fa4a6c\",\n            \"description\": \"General elections for 2024 council\",\n            \"winner\": {\n                \"candidateId\": \"68cec692fa3d20f370fa4a6f\",\n                \"name\": \"Martin\",\n                \"voteCount\": 1,\n                \"position\": \"President\"\n            }\n        }\n    ]\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
